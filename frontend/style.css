@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--gradient-bg);
     color: var(--text-main);
     min-height: 100vh;
@@ -581,25 +581,32 @@ button:hover {
     position: relative;
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
 }
 
 .slider-track-container {
-    overflow-x: auto;
+    overflow: hidden;
     width: 100%;
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-    padding: 1.5rem 0.5rem;
+    padding: 1.5rem 5vw;
 }
 
-.slider-track-container::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+@media (min-width: 1200px) {
+    .slider-track-container {
+        padding: 1.5rem calc((100vw - 1200px) / 2 + 5vw);
+    }
 }
 
 .slider-track {
     display: flex;
     gap: 2rem;
     width: max-content;
+    transition: transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: transform;
 }
 
 .slider-track .card {
@@ -612,8 +619,8 @@ button:hover {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background: rgba(30, 41, 59, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -622,6 +629,7 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
     cursor: pointer;
     z-index: 10;
     backdrop-filter: blur(10px);
@@ -629,19 +637,38 @@ button:hover {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+.slider-btn svg {
+    width: 30px;
+    height: 30px;
+    display: block;
+    flex-shrink: 0;
+    stroke: white;
+    pointer-events: none;
+}
+
 .slider-btn:hover {
     background: var(--gradient-accent);
     border-color: transparent;
     transform: translateY(-50%) scale(1.1);
     box-shadow: 0 15px 30px rgba(129, 140, 248, 0.4);
+    opacity: 1;
 }
 
 .prev-btn {
-    left: -25px;
+    left: 2vw;
 }
 
 .next-btn {
-    right: -25px;
+    right: 2vw;
+}
+
+@media (min-width: 1200px) {
+    .prev-btn {
+        left: calc((100vw - 1200px) / 2 + 2vw);
+    }
+    .next-btn {
+        right: calc((100vw - 1200px) / 2 + 2vw);
+    }
 }
 
 /* Scroll entry reveal transitions (slower 1.6s ease-out cubic-bezier) */
@@ -737,6 +764,33 @@ button:hover {
         right: -10px;
     }
 }
+
+/* Language button styling */
+.lang-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-main);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    width: auto;
+}
+
+.lang-btn:hover {
+    background: var(--gradient-accent);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
+    color: white;
+}
+
 
 
 
