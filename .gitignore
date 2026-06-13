@@ -1,0 +1,23 @@
+# Environments
+.env
+backend/.env
+backend/venv/
+venv/
+ENV/
+
+# Python caching
+__pycache__/
+backend/__pycache__/
+*.py[cod]
+*$py.class
+
+# Databases & local sqlite
+*.db
+*.sqlite3
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Netlify builds (if local tests are run)
+.netlify/
