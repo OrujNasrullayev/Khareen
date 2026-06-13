@@ -11,11 +11,12 @@ Build a website for a Clothes Renting business.
 - **Deployment:** Deployed to Netlify via GitHub Actions (triggered by pushes to `master`/`main` or manually).
 
 ## Features & Pages
-1. **Collection Page:** Show items from collections.
-2. **About Us Page:** Information about the business.
-3. **Contact Us Page:** Retrieve filled out contact us forms in the backend.
-4. **Admin Panel:** Manage (view, add, edit, delete) everything built (e.g., collection items, contact submissions, and all editable text content across pages). Must be secured with authentication (login) and only accessible via a direct link/hash (no navbar button).
-5. **Site Content Management:** All text displayed on the website (Collection page hero, About Us text, Contact Us text, etc.) must be stored in the database and editable from the Admin Panel.
+1. **Home Page:** Landing page. Shows the type of the website.
+2. **Collection Page:** Show items from collections.
+3. **About Us Page:** Information about the business.
+4. **Contact Us Page:** Retrieve filled out contact us forms in the backend.
+5. **Admin Panel:** Manage (view, add, edit, delete) everything built (e.g., collection items, contact submissions, and all editable text content across pages). Must be secured with authentication (login) and only accessible via a direct link/hash (no navbar button).
+6. **Site Content Management:** All text displayed on the website (Collection page hero, About Us text, Contact Us text, etc.) must be stored in the database and editable from the Admin Panel.
 
 ## Constraints & Rules
 - Every time any sort of change is made, ensure alignment with this goals document.
