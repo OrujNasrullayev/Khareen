@@ -12,7 +12,7 @@ ADMIN_TOKEN = "lumina_rent_secret_admin_token_2026"
 
 @router.post("/login", response_model=schemas.TokenResponse)
 def login(request: schemas.LoginRequest):
-    if request.username == "admin" and request.password == "Nesrulla1.":
+    if request.username == "admin" and request.password == "Khareen2026":
         return {"token": ADMIN_TOKEN}
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,

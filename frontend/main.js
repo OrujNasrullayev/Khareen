@@ -16,7 +16,7 @@ const translations = {
         navAbout: "Haqqımızda",
         navContact: "Bizimlə Əlaqə",
         heroTag: "Premium Tədbir Libaslarının İcarəsi",
-        heroTitle: "Üslubunuzu Ucaldın.<br>Ən fərqlini <span class=\"gradient-text\">İcarə edin</span>.",
+        heroTitle: "Üslubunuzu Ucaldın.<br>Ən fərqlini <br><span class=\"gradient-text\">İcarə edin</span>.",
         heroSubtitle: "Kürator tərəfindən seçilmiş dizayner geyimlərinə və podiuma hazır ziyafət libaslarına pərakəndə satış qiymətinin cüzi bir hissəsi ilə sahib olun. Ən yaddaqalan anlarınız üçün hazırlanmış davamlı dəbdəbə.",
         heroBtnBrowse: "Kolleksiyaya Baxın",
         heroBtnStory: "Hekayəmiz",
@@ -27,7 +27,7 @@ const translations = {
         errorLoading: "Məhsulların yüklənməsində xəta baş verdi.",
         perDay: "/ gün",
         aboutTitle: "Haqqımızda",
-        aboutText1: "LuminaRent-ə xoş gəlmisiniz. Biz davamlı dəbə və büdcənizə zərər vermədən ən yaxşı görünüşə sahib olmağa inanırıq. Premium geyimlərdən ibarət kolleksiyamız istənilən tədbir üçün icarəyə verilir.",
+        aboutText1: "KháReen-ə xoş gəlmisiniz. Biz davamlı dəbə və büdcənizə zərər vermədən ən yaxşı görünüşə sahib olmağa inanırıq. Premium geyimlərdən ibarət kolleksiyamız istənilən tədbir üçün icarəyə verilir.",
         aboutText2: "Missiyamız keyfiyyətli xidmət, şəffaf qiymətlər və sizin hesab edə biləcəyiniz daim genişlənən qarderob vasitəsilə etibar yaratmaqdır.",
         contactTitle: "Bizimlə Əlaqə",
         contactSubtitle: "Sizin fikirlərinizi eşitmək bizim üçün xoşdur.",
@@ -102,7 +102,7 @@ const translations = {
         errorLoading: "Error loading items.",
         perDay: "/ day",
         aboutTitle: "About Us",
-        aboutText1: "Welcome to LuminaRent. We believe in sustainable fashion and looking your best without breaking the bank. Our curated collection of premium clothing is available for you to rent for any occasion.",
+        aboutText1: "Welcome to KháReen. We believe in sustainable fashion and looking your best without breaking the bank. Our curated collection of premium clothing is available for you to rent for any occasion.",
         aboutText2: "Our mission is to build trust through quality service, transparent pricing, and an ever-expanding wardrobe that you can call your own.",
         contactTitle: "Contact Us",
         contactSubtitle: "We'd love to hear from you.",
@@ -274,10 +274,36 @@ function ensureSinglePageLayout() {
         <!-- About Us Section -->
         <section id="about" class="scroll-section reveal-zoom-in">
             <h2 class="section-title text-center">${t.aboutTitle}</h2>
-            <div class="about-text">
-                <p>${t.aboutText1}</p>
-                <br>
-                <p>${t.aboutText2}</p>
+            <div class="about-grid">
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>${t.aboutText1}</p>
+                        <br>
+                        <p>${t.aboutText2}</p>
+                    </div>
+                    <div class="about-socials">
+                        <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="https://pinterest.com" target="_blank" class="social-link" aria-label="Pinterest">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.27 2.68 7.91 6.46 9.39-.09-.8-.17-2.03.03-2.91.19-.8 1.21-5.13 1.21-5.13s-.31-.62-.31-1.54c0-1.44.84-2.52 1.88-2.52.88 0 1.31.67 1.31 1.47 0 .89-.57 2.22-.86 3.45-.24 1.03.52 1.87 1.54 1.87 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.24-4.35-4.24-2.96 0-4.7 2.22-4.7 4.52 0 .89.34 1.85.77 2.38.08.1.1.17.07.28-.08.33-.26 1.05-.3 1.19-.05.2-.17.24-.39.14-1.46-.68-2.38-2.82-2.38-4.54 0-3.69 2.68-7.08 7.73-7.08 4.06 0 7.21 2.89 7.21 6.75 0 4.03-2.54 7.28-6.07 7.28-1.19 0-2.3-.62-2.68-1.35l-.73 2.79c-.26 1.02-.98 2.3-1.46 3.08C10.09 21.78 11.02 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"></path></svg>
+                            <span>Pinterest</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="about-images">
+                    <div class="about-img-wrapper img-1">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80" alt="KháReen Boutique" loading="lazy">
+                    </div>
+                    <div class="about-img-wrapper img-2">
+                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80" alt="KháReen Editorial" loading="lazy">
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -342,7 +368,7 @@ function loadCollectionItems() {
                     const img = new Image();
                     img.src = item.image_url;
                     if (img.decode) {
-                        img.decode().catch(() => {});
+                        img.decode().catch(() => { });
                     }
                 }
             });
@@ -409,7 +435,7 @@ function setupEndlessCarousel() {
     // Prepend the last two cards to the beginning to act as left buffers (total 2 cards cached on the left)
     const initialCards = grid.querySelectorAll('.card');
     if (initialCards.length <= 2) return;
-    
+
     const lastCard1 = initialCards[initialCards.length - 1];
     const lastCard2 = initialCards[initialCards.length - 2];
     grid.insertBefore(lastCard1, grid.firstChild);
@@ -428,7 +454,7 @@ function setupEndlessCarousel() {
         if (!isCarouselAutoScrolling) return;
 
         const scrollAmount = getScrollAmount();
-        
+
         // Handle window resize dynamically to scale the scroll position and prevent layout jumps
         if (scrollAmount !== carouselLastScrollAmount) {
             carouselCurrentX = (carouselCurrentX / carouselLastScrollAmount) * scrollAmount;
