@@ -37,6 +37,7 @@ const translations = {
         btnSend: "Mesajı Göndər",
         statusSuccess: "Mesaj uğurla göndərildi!",
         statusError: "Mesajın göndərilməsi alınmadı.",
+        footerRights: "Bütün hüquqlar qorunur.",
         adminAccess: "Admin Girişi",
         enterCredentials: "Davam etmək üçün məlumatlarınızı daxil edin",
         labelUsername: "İstifadəçi adı",
@@ -112,6 +113,7 @@ const translations = {
         btnSend: "Send Message",
         statusSuccess: "Message sent successfully!",
         statusError: "Failed to send message.",
+        footerRights: "All rights reserved.",
         adminAccess: "Admin Access",
         enterCredentials: "Enter your credentials to continue",
         labelUsername: "Username",
@@ -328,6 +330,19 @@ function ensureSinglePageLayout() {
             </form>
             <p id="formStatus" style="text-align:center; margin-top:1rem; color:#818cf8;"></p>
         </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2026 KháReen. ${t.footerRights}</p>
+                <div class="footer-links">
+                    <a href="#home">${t.navHome}</a>
+                    <a href="#collection">${t.navCollection}</a>
+                    <a href="#about">${t.navAbout}</a>
+                    <a href="#contact">${t.navContact}</a>
+                </div>
+            </div>
+        </footer>
     `;
 
     loadCollectionItems();
