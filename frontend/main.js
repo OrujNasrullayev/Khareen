@@ -418,25 +418,23 @@ function loadCollectionItems() {
                 return;
             }
 
-            // Preload and decode all images in background to prevent lazy-loading pop-in
-            data.forEach(item => {
+            // Preload only the first few images to prevent lazy-loading pop-in initially
+            data.slice(0, 6).forEach(item => {
                 if (item.image_url) {
                     const img = new Image();
                     img.src = item.image_url;
-                    if (img.decode) {
-                        img.decode().catch(() => { });
-                    }
                 }
             });
 
             // Ensure we have at least 6 cards for smooth visual buffering on both sides
             const listToRender = data.length < 6 ? [...data, ...data] : data;
 
-            grid.innerHTML = listToRender.map(item => {
+            grid.innerHTML = listToRender.map((item, index) => {
                 const translated = translateItem(item);
+                const loadingAttr = index < 6 ? 'eager' : 'lazy';
                 return `
                     <div class="card">
-                        <img class="card-img" src="${item.image_url || ''}" alt="${translated.name}" decoding="sync">
+                        <img class="card-img" src="${item.image_url || ''}" alt="${translated.name}" loading="${loadingAttr}" decoding="async">
                         <h3 class="card-title">${translated.name}</h3>
                         <p class="card-desc">${translated.description}</p>
                         <p class="card-price">₼${translated.price}${t.perDay}</p>
