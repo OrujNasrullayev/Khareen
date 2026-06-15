@@ -229,6 +229,7 @@ function ensureSinglePageLayout() {
 
     const t = translations[currentLang];
 
+    // Render Hero Section IMMEDIATELY to show the landing page instantly
     appContent.innerHTML = `
         <!-- Floating decorative background blobs for rich aesthetic -->
         <div class="background-blobs">
@@ -253,139 +254,145 @@ function ensureSinglePageLayout() {
                 <div class="hero-image-card"></div>
             </div>
         </section>
-
-        <!-- Collection Section -->
-        <section id="collection" class="scroll-section reveal-slide-left">
-            <h2 class="section-title text-center">${t.collTitle}</h2>
-            <p class="section-subtitle text-center">${t.collSubtitle}</p>
-            <div class="collection-slider-wrapper">
-                <button class="slider-btn prev-btn" id="sliderPrevBtn" aria-label="Previous dress">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-                <div class="slider-track-container" id="sliderTrackContainer">
-                    <div class="slider-track" id="items-grid">
-                        <p>${t.loading}</p>
-                    </div>
-                </div>
-                <button class="slider-btn next-btn" id="sliderNextBtn" aria-label="Next dress">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
-            </div>
-        </section>
-
-        <!-- About Us Section -->
-        <section id="about" class="scroll-section reveal-zoom-in">
-            <h2 class="section-title text-center">${t.aboutTitle}</h2>
-            <div class="about-grid">
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>${t.aboutText1}</p>
-                        <br>
-                        <p>${t.aboutText2}</p>
-                    </div>
-                    <div class="about-socials">
-                        <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                            <span>Instagram</span>
-                        </a>
-                        <a href="https://tiktok.com" target="_blank" class="social-link" aria-label="TikTok">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-                            <span>TikTok</span>
-                        </a>
-                        <a href="https://youtube.com" target="_blank" class="social-link" aria-label="YouTube">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-                            <span>YouTube</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="about-images">
-                    <div class="about-img-wrapper img-1">
-                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80" alt="KháReen Boutique" loading="lazy">
-                    </div>
-                    <div class="about-img-wrapper img-2">
-                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80" alt="KháReen Editorial" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Us Section -->
-        <section id="contact" class="scroll-section reveal-slide-right">
-            <h2 class="section-title text-center">${t.contactTitle}</h2>
-            <p class="section-subtitle text-center">${t.contactSubtitle}</p>
-            <form class="contact-form" id="contactForm">
-                <div class="contact-form-grid">
-                    <div class="form-group">
-                        <label for="name">${t.labelName}</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="event_date">${t.labelEventDate}</label>
-                        <input type="date" id="event_date">
-                    </div>
-                    <div class="form-group">
-                        <label for="whatsapp_number">${t.labelWhatsapp}</label>
-                        <input type="tel" id="whatsapp_number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="occasion">${t.labelOccasion}</label>
-                        <select id="occasion">
-                            <option value="" disabled selected>${currentLang === 'az' ? 'Seçin...' : 'Select...'}</option>
-                            <option value="Gala">${currentLang === 'az' ? 'Qala' : 'Gala'}</option>
-                            <option value="Wedding">${currentLang === 'az' ? 'Toy' : 'Wedding'}</option>
-                            <option value="Prom">${currentLang === 'az' ? 'Buraxılış' : 'Prom'}</option>
-                            <option value="Cocktail">${currentLang === 'az' ? 'Kokteyl' : 'Cocktail'}</option>
-                            <option value="Birthday">${currentLang === 'az' ? 'Ad Günü' : 'Birthday'}</option>
-                            <option value="Other">${currentLang === 'az' ? 'Digər' : 'Other'}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="size">${t.labelSize}</label>
-                        <select id="size">
-                            <option value="" disabled selected>${currentLang === 'az' ? 'Seçin...' : 'Select...'}</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">${t.labelNotes}</label>
-                        <textarea id="message" rows="1"></textarea>
-                    </div>
-                </div>
-                <div class="form-footer">
-                    <span class="form-note">${t.requiredNote}</span>
-                </div>
-                <button type="submit">${t.btnSend}</button>
-                <p class="cta-caption">${t.ctaCaption}</p>
-            </form>
-            <p id="formStatus" style="text-align:center; margin-top:1rem; color:#818cf8;"></p>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p>&copy; 2026 KháReen. ${t.footerRights}</p>
-                <div class="footer-links">
-                    <a href="#home">${t.navHome}</a>
-                    <a href="#collection">${t.navCollection}</a>
-                    <a href="#about">${t.navAbout}</a>
-                    <a href="#contact">${t.navContact}</a>
-                </div>
-            </div>
-        </footer>
     `;
 
-    loadCollectionItems();
-    bindContactFormListener();
-    setupScrollObserver();
-    setupRevealObserver();
+    // Defer loading the rest of the page to ensure the hero section paints first
+    setTimeout(() => {
+        const remainingHtml = `
+            <!-- Collection Section -->
+            <section id="collection" class="scroll-section reveal-slide-left">
+                <h2 class="section-title text-center">${t.collTitle}</h2>
+                <p class="section-subtitle text-center">${t.collSubtitle}</p>
+                <div class="collection-slider-wrapper">
+                    <button class="slider-btn prev-btn" id="sliderPrevBtn" aria-label="Previous dress">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="slider-track-container" id="sliderTrackContainer">
+                        <div class="slider-track" id="items-grid">
+                            <p>${t.loading}</p>
+                        </div>
+                    </div>
+                    <button class="slider-btn next-btn" id="sliderNextBtn" aria-label="Next dress">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- About Us Section -->
+            <section id="about" class="scroll-section reveal-zoom-in">
+                <h2 class="section-title text-center">${t.aboutTitle}</h2>
+                <div class="about-grid">
+                    <div class="about-content">
+                        <div class="about-text">
+                            <p>${t.aboutText1}</p>
+                            <br>
+                            <p>${t.aboutText2}</p>
+                        </div>
+                        <div class="about-socials">
+                            <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="https://tiktok.com" target="_blank" class="social-link" aria-label="TikTok">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                                <span>TikTok</span>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" class="social-link" aria-label="YouTube">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                                <span>YouTube</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="about-images">
+                        <div class="about-img-wrapper img-1">
+                            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80" alt="KháReen Boutique" loading="lazy">
+                        </div>
+                        <div class="about-img-wrapper img-2">
+                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80" alt="KháReen Editorial" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Us Section -->
+            <section id="contact" class="scroll-section reveal-slide-right">
+                <h2 class="section-title text-center">${t.contactTitle}</h2>
+                <p class="section-subtitle text-center">${t.contactSubtitle}</p>
+                <form class="contact-form" id="contactForm">
+                    <div class="contact-form-grid">
+                        <div class="form-group">
+                            <label for="name">${t.labelName}</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event_date">${t.labelEventDate}</label>
+                            <input type="date" id="event_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp_number">${t.labelWhatsapp}</label>
+                            <input type="tel" id="whatsapp_number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="occasion">${t.labelOccasion}</label>
+                            <select id="occasion">
+                                <option value="" disabled selected>${currentLang === 'az' ? 'Seçin...' : 'Select...'}</option>
+                                <option value="Gala">${currentLang === 'az' ? 'Qala' : 'Gala'}</option>
+                                <option value="Wedding">${currentLang === 'az' ? 'Toy' : 'Wedding'}</option>
+                                <option value="Prom">${currentLang === 'az' ? 'Buraxılış' : 'Prom'}</option>
+                                <option value="Cocktail">${currentLang === 'az' ? 'Kokteyl' : 'Cocktail'}</option>
+                                <option value="Birthday">${currentLang === 'az' ? 'Ad Günü' : 'Birthday'}</option>
+                                <option value="Other">${currentLang === 'az' ? 'Digər' : 'Other'}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="size">${t.labelSize}</label>
+                            <select id="size">
+                                <option value="" disabled selected>${currentLang === 'az' ? 'Seçin...' : 'Select...'}</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">${t.labelNotes}</label>
+                            <textarea id="message" rows="1"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <span class="form-note">${t.requiredNote}</span>
+                    </div>
+                    <button type="submit">${t.btnSend}</button>
+                    <p class="cta-caption">${t.ctaCaption}</p>
+                </form>
+                <p id="formStatus" style="text-align:center; margin-top:1rem; color:#818cf8;"></p>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <p>&copy; 2026 KháReen. ${t.footerRights}</p>
+                    <div class="footer-links">
+                        <a href="#home">${t.navHome}</a>
+                        <a href="#collection">${t.navCollection}</a>
+                        <a href="#about">${t.navAbout}</a>
+                        <a href="#contact">${t.navContact}</a>
+                    </div>
+                </div>
+            </footer>
+        `;
+        appContent.insertAdjacentHTML('beforeend', remainingHtml);
+
+        loadCollectionItems();
+        bindContactFormListener();
+        setupScrollObserver();
+        setupRevealObserver();
+    }, 10);
 }
 
 function translateItem(item) {
@@ -725,6 +732,7 @@ function setupRevealObserver() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
+                revealObserver.unobserve(entry.target); // Unobserve to improve scroll performance
             }
         });
     }, options);
