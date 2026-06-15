@@ -2,8 +2,10 @@ from pydantic import BaseModel
 from typing import Optional
 
 class ItemBase(BaseModel):
-    name: str
-    description: Optional[str] = None
+    name_az: str
+    name_en: str
+    description_az: Optional[str] = None
+    description_en: Optional[str] = None
     image_url: Optional[str] = None
     price: float
 
@@ -14,7 +16,7 @@ class Item(ItemBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ContactFormBase(BaseModel):
     name: str
@@ -28,7 +30,7 @@ class ContactForm(ContactFormBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class LoginRequest(BaseModel):
     username: str
@@ -44,7 +46,7 @@ class SiteContentItem(BaseModel):
     label: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class SiteContentUpdate(BaseModel):
     value: str
