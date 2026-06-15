@@ -741,7 +741,6 @@ function renderAdmin() {
         
         <div class="admin-tabs">
             <button class="admin-tab-btn active" id="tab-btn-items">${t.manageColl}</button>
-            <button class="admin-tab-btn" id="tab-btn-content">${currentLang === 'az' ? 'Saytın Məzmunu' : 'Site Content'}</button>
             <button class="admin-tab-btn" id="tab-btn-messages">${t.contactMsgs}</button>
         </div>
 
@@ -772,29 +771,7 @@ function renderAdmin() {
             </div>
         </div>
 
-        <!-- Manage Site Content Section -->
-        <div class="admin-section" id="sec-content">
-            <div class="admin-container">
-                <div class="admin-header">
-                    <h2>${currentLang === 'az' ? 'Saytın Məzmununu İdarə Et' : 'Manage Site Content'}</h2>
-                    <button class="admin-btn-secondary" id="btn-logout-content">${t.logout}</button>
-                </div>
-                <div class="data-table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>${currentLang === 'az' ? 'Sahə' : 'Label'}</th>
-                                <th>${currentLang === 'az' ? 'Məzmun' : 'Content'}</th>
-                                <th>${t.thActions}</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-content-list">
-                            <!-- Site Content populated dynamically -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Contact Submissions Section -->
         <div class="admin-section" id="sec-messages">
@@ -857,59 +834,28 @@ function renderAdmin() {
             </div>
         </div>
 
-        <!-- Edit Site Content Modal -->
-        <div class="modal" id="contentModal">
-            <div class="modal-content">
-                <h2 id="contentModalTitle" style="margin-bottom: 1.5rem;">${currentLang === 'az' ? 'Məzmunu Redaktə Et' : 'Edit Site Content'}</h2>
-                <form id="contentForm">
-                    <div class="form-group">
-                        <label id="content-label-field" style="font-weight: 600; font-size: 1.1rem; color: #374151;"></label>
-                        <textarea id="content-value" rows="6" required style="width: 100%; margin-top: 0.5rem;"></textarea>
-                    </div>
-                    <div class="action-btns" style="margin-top: 2rem;">
-                        <button type="submit" class="admin-btn">${t.btnSave}</button>
-                        <button type="button" class="admin-btn-secondary" id="btn-close-content-modal">${t.btnCancel}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+
     `;
 
     // Tab Switching Logic
     const tabBtnItems = document.getElementById('tab-btn-items');
     const tabBtnMessages = document.getElementById('tab-btn-messages');
-    const tabBtnContent = document.getElementById('tab-btn-content');
     const secItems = document.getElementById('sec-items');
     const secMessages = document.getElementById('sec-messages');
-    const secContent = document.getElementById('sec-content');
 
     tabBtnItems.addEventListener('click', () => {
         tabBtnItems.classList.add('active');
         tabBtnMessages.classList.remove('active');
-        tabBtnContent.classList.remove('active');
         secItems.classList.add('active');
         secMessages.classList.remove('active');
-        secContent.classList.remove('active');
         loadAdminItems();
-    });
-
-    tabBtnContent.addEventListener('click', () => {
-        tabBtnContent.classList.add('active');
-        tabBtnItems.classList.remove('active');
-        tabBtnMessages.classList.remove('active');
-        secContent.classList.add('active');
-        secItems.classList.remove('active');
-        secMessages.classList.remove('active');
-        loadAdminContent();
     });
 
     tabBtnMessages.addEventListener('click', () => {
         tabBtnMessages.classList.add('active');
         tabBtnItems.classList.remove('active');
-        tabBtnContent.classList.remove('active');
         secMessages.classList.add('active');
         secItems.classList.remove('active');
-        secContent.classList.remove('active');
         loadAdminMessages();
     });
 
@@ -931,17 +877,8 @@ function renderAdmin() {
         modal.style.display = 'none';
     });
 
-    // Content Modal Controls
-    const contentModal = document.getElementById('contentModal');
-    const contentForm = document.getElementById('contentForm');
-    const btnCloseContentModal = document.getElementById('btn-close-content-modal');
-
-    btnCloseContentModal.addEventListener('click', () => {
-        contentModal.style.display = 'none';
-    });
-
     // Logout Control
-    const logoutBtns = [document.getElementById('btn-logout'), document.getElementById('btn-logout-content')];
+    const logoutBtns = [document.getElementById('btn-logout')];
     logoutBtns.forEach(btn => {
         if (btn) {
             btn.addEventListener('click', () => {
@@ -987,41 +924,7 @@ function renderAdmin() {
             });
     });
 
-    // Content Submit (Update)
-    contentForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const value = document.getElementById('content-value').value;
 
-        fetch(`${API_URL}/site-content/${editingContentKey}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                ...getAuthHeaders()
-            },
-            body: JSON.stringify({ value })
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Failed to save content");
-                return res.json();
-            })
-            .then(() => {
-                contentModal.style.display = 'none';
-                const key = editingContentKey;
-                if (key.endsWith('_az')) {
-                    const baseKey = key.slice(0, -3);
-                    const camelKey = baseKey.replace(/_([a-z0-9])/g, (g) => g[1].toUpperCase());
-                    translations.az[camelKey] = value;
-                } else if (key.endsWith('_en')) {
-                    const baseKey = key.slice(0, -3);
-                    const camelKey = baseKey.replace(/_([a-z0-9])/g, (g) => g[1].toUpperCase());
-                    translations.en[camelKey] = value;
-                }
-                loadAdminContent();
-            })
-            .catch(err => {
-                alert(err.message);
-            });
-    });
 
     // Load Initial Tab Data
     loadAdminItems();
@@ -1065,36 +968,7 @@ function loadAdminItems() {
         });
 }
 
-let editingContentKey = null;
 
-function loadAdminContent() {
-    const listContainer = document.getElementById('admin-content-list');
-    listContainer.innerHTML = `<tr><td colspan="3">${translations[currentLang].loading}</td></tr>`;
-
-    fetch(`${API_URL}/site-content/`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.length === 0) {
-                listContainer.innerHTML = `<tr><td colspan="3" style="text-align:center;">No site content found.</td></tr>`;
-                return;
-            }
-            listContainer.innerHTML = data.map(item => `
-                <tr>
-                    <td><strong>${item.label}</strong><br><small style="color: #6b7280; font-family: monospace;">${item.key}</small></td>
-                    <td style="max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(item.value)}</td>
-                    <td>
-                        <div class="action-btns">
-                            <button class="admin-btn" onclick="editContent('${item.key}', '${item.label.replace(/'/g, "\\'")}', '${item.value.replace(/\n/g, '\\n').replace(/'/g, "\\'")}')">${translations[currentLang].btnEdit}</button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        })
-        .catch(err => {
-            listContainer.innerHTML = `<tr><td colspan="3">${translations[currentLang].errorLoading}</td></tr>`;
-            console.error(err);
-        });
-}
 
 function escapeHtml(str) {
     if (!str) return '';
@@ -1154,12 +1028,7 @@ window.editItem = function (id, nameAz, nameEn, descAz, descEn, price, imageUrl)
     document.getElementById('itemModal').style.display = 'flex';
 };
 
-window.editContent = function (key, label, value) {
-    editingContentKey = key;
-    document.getElementById('content-label-field').innerText = label;
-    document.getElementById('content-value').value = value;
-    document.getElementById('contentModal').style.display = 'flex';
-};
+
 
 window.deleteItem = function (id) {
     if (!confirm(translations[currentLang].confirmDelete)) return;
