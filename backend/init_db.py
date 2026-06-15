@@ -110,10 +110,14 @@ try:
         models.SiteContent(key="about_text2_en", value="Our mission is to build trust through quality service, transparent pricing, and an ever-expanding wardrobe that you can call your own.", page="about", label="About: Paragraph 2 (EN)"),
 
         # Contact section
-        models.SiteContent(key="contact_title_az", value="Bizimlə Əlaqə", page="contact", label="Contact: Title (AZ)"),
-        models.SiteContent(key="contact_title_en", value="Contact Us", page="contact", label="Contact: Title (EN)"),
-        models.SiteContent(key="contact_subtitle_az", value="Sizin fikirlərinizi eşitmək bizim üçün xoşdur.", page="contact", label="Contact: Subtitle (AZ)"),
-        models.SiteContent(key="contact_subtitle_en", value="We'd love to hear from you.", page="contact", label="Contact: Subtitle (EN)")
+        models.SiteContent(key="contact_title_az", value="Özəl Libas Tövsiyəsi Alın", page="contact", label="Contact: Title (AZ)"),
+        models.SiteContent(key="contact_title_en", value="Get a Custom Recommendation", page="contact", label="Contact: Title (EN)"),
+        models.SiteContent(key="contact_subtitle_az", value="Növbəti tədbiriniz haqqında bizə bir az məlumat verin və biz sizə ən yaxşı libasları tövsiyə edək!", page="contact", label="Contact: Subtitle (AZ)"),
+        models.SiteContent(key="contact_subtitle_en", value="Tell us a bit about your upcoming event, and we will recommend you the best dresses for it!", page="contact", label="Contact: Subtitle (EN)"),
+        models.SiteContent(key="btn_send_az", value="Özəl Libas Seçimlərimi Əldə Edin", page="contact", label="Contact: Submit Button (AZ)"),
+        models.SiteContent(key="btn_send_en", value="Get My Custom Dress Options", page="contact", label="Contact: Submit Button (EN)"),
+        models.SiteContent(key="cta_caption_az", value="Biz adətən 5–6 saat ərzində fərdiləşdirilmiş libas seçimləri ilə cavab veririk.", page="contact", label="Contact: CTA Caption (AZ)"),
+        models.SiteContent(key="cta_caption_en", value="We typically reply with personalized dress options within 5–6 hours.", page="contact", label="Contact: CTA Caption (EN)")
     ]
     db.add_all(default_content)
 

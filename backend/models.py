@@ -17,7 +17,10 @@ class ContactForm(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
-    email = Column(String, index=True)
+    whatsapp_number = Column(String)
+    event_date = Column(String)
+    occasion = Column(String)
+    size = Column(String)
     message = Column(Text)
 
 class SiteContent(Base):

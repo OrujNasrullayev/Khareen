@@ -101,7 +101,7 @@ main {
 }
 
 .section-title {
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 3.4rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -161,7 +161,7 @@ main {
 
 /* Forms */
 .contact-form {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     background: var(--card-bg);
     padding: 2.5rem;
@@ -169,8 +169,29 @@ main {
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.form-footer {
+    margin-top: -0.75rem;
+    margin-bottom: 0.75rem;
+    text-align: left;
+}
+
+.form-note {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.contact-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
 .form-group {
     margin-bottom: 1.5rem;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
 }
 
 label {
@@ -179,7 +200,7 @@ label {
     color: var(--text-muted);
 }
 
-input, textarea {
+input, select, textarea {
     width: 100%;
     padding: 0.75rem 1rem;
     border-radius: 8px;
@@ -190,7 +211,24 @@ input, textarea {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input:focus, textarea:focus {
+.contact-form textarea {
+    resize: none;
+    height: 44px;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: #000000;
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
@@ -215,6 +253,29 @@ button:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.cta-caption {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 0.75rem;
+}
+
+
+@media (max-width: 768px) {
+    .contact-form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+}
+
+#about {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+
 .about-text {
     max-width: 800px;
     margin: 0 auto;
@@ -230,7 +291,7 @@ button:hover {
     grid-template-columns: 1.1fr 0.9fr;
     gap: 4rem;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 1.25rem;
 }
 
 .about-content {
@@ -911,7 +972,7 @@ button:hover {
 }
 
 .text-center.section-subtitle {
-    margin-bottom: 3.5rem;
+    margin-bottom: 1.25rem;
 }
 
 /* Responsiveness adjustments */

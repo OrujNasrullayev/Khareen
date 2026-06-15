@@ -20,8 +20,11 @@ class Item(ItemBase):
 
 class ContactFormBase(BaseModel):
     name: str
-    email: str
-    message: str
+    whatsapp_number: str
+    event_date: Optional[str] = None
+    occasion: Optional[str] = None
+    size: Optional[str] = None
+    message: Optional[str] = None
 
 class ContactFormCreate(ContactFormBase):
     pass

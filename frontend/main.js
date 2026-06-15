@@ -34,12 +34,17 @@ const translations = {
         aboutTitle: "Haqqımızda",
         aboutText1: "KháReen-ə xoş gəlmisiniz. Biz davamlı dəbə və büdcənizə zərər vermədən ən yaxşı görünüşə sahib olmağa inanırıq. Premium geyimlərdən ibarət kolleksiyamız istənilən tədbir üçün icarəyə verilir.",
         aboutText2: "Missiyamız keyfiyyətli xidmət, şəffaf qiymətlər və sizin hesab edə biləcəyiniz daim genişlənən qarderob vasitəsilə etibar yaratmaqdır.",
-        contactTitle: "Bizimlə Əlaqə",
-        contactSubtitle: "Sizin fikirlərinizi eşitmək bizim üçün xoşdur.",
-        labelName: "Ad",
-        labelEmail: "E-poçt",
-        labelMessage: "Mesaj",
-        btnSend: "Mesajı Göndər",
+        contactTitle: "Özəl Libas Tövsiyəsi Alın",
+        contactSubtitle: "Növbəti tədbiriniz haqqında bizə bir az məlumat verin və biz sizə ən yaxşı libasları tövsiyə edək!",
+        requiredNote: "* Vacib sahələr",
+        labelName: "Ad *",
+        labelWhatsapp: "Whatsapp nömrəsi *",
+        labelEventDate: "Tədbiriniz nə vaxtdır?",
+        labelOccasion: "Tədbirin dress-kodu/növü nədir?",
+        labelSize: "Adətən hansı ölçünü geyinirsiniz?",
+        labelNotes: "Əlavə qeydlər / suallar (Könüllü)",
+        btnSend: "Özəl Libas Seçimlərimi Əldə Edin",
+        ctaCaption: "Biz adətən 5–6 saat ərzində fərdiləşdirilmiş libas seçimləri ilə cavab veririk.",
         statusSuccess: "Mesaj uğurla göndərildi!",
         statusError: "Mesajın göndərilməsi alınmadı.",
         footerRights: "Bütün hüquqlar qorunur.",
@@ -58,8 +63,11 @@ const translations = {
         thName: "Ad",
         thPrice: "Qiymət",
         thActions: "Əməliyyatlar",
-        thEmail: "E-poçt",
-        thMessage: "Mesaj",
+        thWhatsapp: "Whatsapp",
+        thEventDate: "Tədbir Tarixi",
+        thOccasion: "Tədbir Növü",
+        thSize: "Ölçü",
+        thNotes: "Qeydlər",
         btnEdit: "Redaktə et",
         btnDelete: "Sil",
         btnSave: "Yadda saxla",
@@ -68,7 +76,7 @@ const translations = {
         modalEditTitle: "Məhsulu Redaktə Et",
         labelItemName: "Məhsulun Adı",
         labelItemDesc: "Təsvir",
-        labelItemPrice: "Qiymət ($ günə)",
+        labelItemPrice: "Qiymət (₼ günə)",
         labelItemImg: "Şəkil URL-i",
         confirmDelete: "Bu məhsulu silmək istədiyinizdən əminsiniz?",
         confirmDeleteMsg: "Bu mesajı silmək istədiyinizdən əminsiniz?",
@@ -93,12 +101,17 @@ const translations = {
         aboutTitle: "About Us",
         aboutText1: "Welcome to KháReen. We believe in sustainable fashion and looking your best without breaking the bank. Our curated collection of premium clothing is available for you to rent for any occasion.",
         aboutText2: "Our mission is to build trust through quality service, transparent pricing, and an ever-expanding wardrobe that you can call your own.",
-        contactTitle: "Contact Us",
-        contactSubtitle: "We'd love to hear from you.",
-        labelName: "Name",
-        labelEmail: "Email",
-        labelMessage: "Message",
-        btnSend: "Send Message",
+        contactTitle: "Get a Custom Recommendation",
+        contactSubtitle: "Tell us a bit about your upcoming event, and we will recommend you the best dresses for it!",
+        requiredNote: "* Required fields",
+        labelName: "Name *",
+        labelWhatsapp: "Whatsapp number *",
+        labelEventDate: "When is your event?",
+        labelOccasion: "What is the dress code/occasion?",
+        labelSize: "What size do you typically wear?",
+        labelNotes: "Additional notes/ questions (Optional)",
+        btnSend: "Get My Custom Dress Options",
+        ctaCaption: "We typically reply with personalized dress options within 5–6 hours.",
         statusSuccess: "Message sent successfully!",
         statusError: "Failed to send message.",
         footerRights: "All rights reserved.",
@@ -117,8 +130,11 @@ const translations = {
         thName: "Name",
         thPrice: "Price",
         thActions: "Actions",
-        thEmail: "Email",
-        thMessage: "Message",
+        thWhatsapp: "Whatsapp",
+        thEventDate: "Event Date",
+        thOccasion: "Occasion",
+        thSize: "Size",
+        thNotes: "Notes",
         btnEdit: "Edit",
         btnDelete: "Delete",
         btnSave: "Save",
@@ -127,7 +143,7 @@ const translations = {
         modalEditTitle: "Edit Item",
         labelItemName: "Item Name",
         labelItemDesc: "Description",
-        labelItemPrice: "Price ($ per day)",
+        labelItemPrice: "Price (₼ per day)",
         labelItemImg: "Image URL",
         confirmDelete: "Are you sure you want to delete this item?",
         confirmDeleteMsg: "Are you sure you want to delete this message?",
@@ -276,13 +292,13 @@ function ensureSinglePageLayout() {
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                             <span>Instagram</span>
                         </a>
-                        <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                            <span>Facebook</span>
+                        <a href="https://tiktok.com" target="_blank" class="social-link" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                            <span>TikTok</span>
                         </a>
-                        <a href="https://pinterest.com" target="_blank" class="social-link" aria-label="Pinterest">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.27 2.68 7.91 6.46 9.39-.09-.8-.17-2.03.03-2.91.19-.8 1.21-5.13 1.21-5.13s-.31-.62-.31-1.54c0-1.44.84-2.52 1.88-2.52.88 0 1.31.67 1.31 1.47 0 .89-.57 2.22-.86 3.45-.24 1.03.52 1.87 1.54 1.87 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.24-4.35-4.24-2.96 0-4.7 2.22-4.7 4.52 0 .89.34 1.85.77 2.38.08.1.1.17.07.28-.08.33-.26 1.05-.3 1.19-.05.2-.17.24-.39.14-1.46-.68-2.38-2.82-2.38-4.54 0-3.69 2.68-7.08 7.73-7.08 4.06 0 7.21 2.89 7.21 6.75 0 4.03-2.54 7.28-6.07 7.28-1.19 0-2.3-.62-2.68-1.35l-.73 2.79c-.26 1.02-.98 2.3-1.46 3.08C10.09 21.78 11.02 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"></path></svg>
-                            <span>Pinterest</span>
+                        <a href="https://youtube.com" target="_blank" class="social-link" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                            <span>YouTube</span>
                         </a>
                     </div>
                 </div>
@@ -302,19 +318,52 @@ function ensureSinglePageLayout() {
             <h2 class="section-title text-center">${t.contactTitle}</h2>
             <p class="section-subtitle text-center">${t.contactSubtitle}</p>
             <form class="contact-form" id="contactForm">
-                <div class="form-group">
-                    <label>${t.labelName}</label>
-                    <input type="text" id="name" required>
+                <div class="contact-form-grid">
+                    <div class="form-group">
+                        <label for="name">${t.labelName}</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event_date">${t.labelEventDate}</label>
+                        <input type="date" id="event_date">
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsapp_number">${t.labelWhatsapp}</label>
+                        <input type="tel" id="whatsapp_number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="occasion">${t.labelOccasion}</label>
+                        <select id="occasion">
+                            <option value="" disabled selected>${currentLang === 'az' ? 'Seçin...' : 'Select...'}</option>
+                            <option value="Gala">${currentLang === 'az' ? 'Qala' : 'Gala'}</option>
+                            <option value="Wedding">${currentLang === 'az' ? 'Toy' : 'Wedding'}</option>
+                            <option value="Prom">${currentLang === 'az' ? 'Buraxılış' : 'Prom'}</option>
+                            <option value="Cocktail">${currentLang === 'az' ? 'Kokteyl' : 'Cocktail'}</option>
+                            <option value="Birthday">${currentLang === 'az' ? 'Ad Günü' : 'Birthday'}</option>
+                            <option value="Other">${currentLang === 'az' ? 'Digər' : 'Other'}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">${t.labelSize}</label>
+                        <select id="size">
+                            <option value="" disabled selected>${currentLang === 'az' ? 'Seçin...' : 'Select...'}</option>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">${t.labelNotes}</label>
+                        <textarea id="message" rows="1"></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>${t.labelEmail}</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label>${t.labelMessage}</label>
-                    <textarea id="message" rows="5" required></textarea>
+                <div class="form-footer">
+                    <span class="form-note">${t.requiredNote}</span>
                 </div>
                 <button type="submit">${t.btnSend}</button>
+                <p class="cta-caption">${t.ctaCaption}</p>
             </form>
             <p id="formStatus" style="text-align:center; margin-top:1rem; color:#818cf8;"></p>
         </section>
@@ -390,7 +439,7 @@ function loadCollectionItems() {
                         <img class="card-img" src="${item.image_url || ''}" alt="${translated.name}" decoding="sync">
                         <h3 class="card-title">${translated.name}</h3>
                         <p class="card-desc">${translated.description}</p>
-                        <p class="card-price">$${translated.price}${t.perDay}</p>
+                        <p class="card-price">₼${translated.price}${t.perDay}</p>
                     </div>
                 `;
             }).join('');
@@ -601,15 +650,18 @@ function bindContactFormListener() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
+        const whatsapp_number = document.getElementById('whatsapp_number').value;
+        const event_date = document.getElementById('event_date').value || null;
+        const occasion = document.getElementById('occasion').value || null;
+        const size = document.getElementById('size').value || null;
+        const message = document.getElementById('message').value || null;
 
         fetch(`${API_URL}/contact/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, message })
+            body: JSON.stringify({ name, whatsapp_number, event_date, occasion, size, message })
         })
             .then(res => res.json())
             .then(() => {
@@ -784,8 +836,11 @@ function renderAdmin() {
                         <thead>
                             <tr>
                                 <th>${t.thName}</th>
-                                <th>${t.thEmail}</th>
-                                <th>${t.thMessage}</th>
+                                <th>${t.thWhatsapp}</th>
+                                <th>${t.thEventDate}</th>
+                                <th>${t.thOccasion}</th>
+                                <th>${t.thSize}</th>
+                                <th>${t.thNotes}</th>
                                 <th>${t.thActions}</th>
                             </tr>
                         </thead>
@@ -951,7 +1006,7 @@ function loadAdminItems() {
                 return `
                     <tr>
                         <td>${currentLang === 'az' ? (item.name_az || item.name_en) : (item.name_en || item.name_az)}</td>
-                        <td>$${item.price}${t.perDay}</td>
+                        <td>₼${item.price}${t.perDay}</td>
                         <td>
                             <div class="action-btns">
                                 <button class="admin-btn" onclick="editItem(${item.id}, '${escapedNameAz}', '${escapedNameEn}', '${escapedDescAz}', '${escapedDescEn}', ${item.price}, '${item.image_url}')">${t.btnEdit}</button>
@@ -983,7 +1038,7 @@ function escapeHtml(str) {
 function loadAdminMessages() {
     const t = translations[currentLang];
     const listContainer = document.getElementById('admin-messages-list');
-    listContainer.innerHTML = `<tr><td colspan="4">${t.loading}</td></tr>`;
+    listContainer.innerHTML = `<tr><td colspan="7">${t.loading}</td></tr>`;
 
     fetch(`${API_URL}/contact/`, {
         headers: getAuthHeaders()
@@ -994,14 +1049,31 @@ function loadAdminMessages() {
         })
         .then(data => {
             if (data.length === 0) {
-                listContainer.innerHTML = `<tr><td colspan="4" style="text-align:center;">${currentLang === 'az' ? 'Heç bir müraciət tapılmadı.' : 'No submissions found.'}</td></tr>`;
+                listContainer.innerHTML = `<tr><td colspan="7" style="text-align:center;">${currentLang === 'az' ? 'Heç bir müraciət tapılmadı.' : 'No submissions found.'}</td></tr>`;
                 return;
             }
+            
+            const getOccasionText = (occ) => {
+                if (!occ) return '-';
+                const mapping = {
+                    'Gala': currentLang === 'az' ? 'Qala' : 'Gala',
+                    'Wedding': currentLang === 'az' ? 'Toy' : 'Wedding',
+                    'Prom': currentLang === 'az' ? 'Buraxılış' : 'Prom',
+                    'Cocktail': currentLang === 'az' ? 'Kokteyl' : 'Cocktail',
+                    'Birthday': currentLang === 'az' ? 'Ad Günü' : 'Birthday',
+                    'Other': currentLang === 'az' ? 'Digər' : 'Other'
+                };
+                return mapping[occ] || occ;
+            };
+
             listContainer.innerHTML = data.map(msg => `
                 <tr>
-                    <td>${msg.name}</td>
-                    <td>${msg.email}</td>
-                    <td>${msg.message}</td>
+                    <td>${escapeHtml(msg.name)}</td>
+                    <td>${escapeHtml(msg.whatsapp_number) || '-'}</td>
+                    <td>${escapeHtml(msg.event_date) || '-'}</td>
+                    <td>${getOccasionText(msg.occasion)}</td>
+                    <td>${escapeHtml(msg.size) || '-'}</td>
+                    <td>${escapeHtml(msg.message) || '-'}</td>
                     <td>
                         <button class="admin-btn-danger" onclick="deleteMessage(${msg.id})">${t.btnDelete}</button>
                     </td>
@@ -1009,7 +1081,7 @@ function loadAdminMessages() {
             `).join('');
         })
         .catch(err => {
-            listContainer.innerHTML = `<tr><td colspan="4">${currentLang === 'az' ? 'Mesajların yüklənməsində xəta' : 'Error loading messages'}: ${err.message}</td></tr>`;
+            listContainer.innerHTML = `<tr><td colspan="7">${currentLang === 'az' ? 'Mesajların yüklənməsində xəta' : 'Error loading messages'}: ${err.message}</td></tr>`;
             console.error(err);
         });
 }
