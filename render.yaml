@@ -1,7 +1,6 @@
 databases:
   - name: khareen-db
     databaseName: clothes_rental
-    user: postgres
     plan: free
 
 services:
