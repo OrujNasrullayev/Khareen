@@ -1,6 +1,9 @@
+// IMPORTANT: Replace this URL with your actual Render URL after deploying!
+const PRODUCTION_API_URL = 'https://YOUR_RENDER_BACKEND_URL.onrender.com';
+
 const API_URL = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
-    ? window.location.origin
-    : 'http://127.0.0.1:1111';
+    ? 'http://127.0.0.1:1111'
+    : PRODUCTION_API_URL;
 
 const appContent = document.getElementById('app-content');
 const navHome = document.getElementById('nav-home');
