@@ -17,6 +17,7 @@ Build a website for a Clothes Renting business.
 4. **Contact Us Page:** Retrieve filled out contact us forms in the backend.
 5. **Admin Panel:** Manage (view, add, edit, delete) everything built (e.g., collection items, contact submissions, and all editable text content across pages). Must be secured with authentication (login) and only accessible via a direct link/hash (no navbar button).
 6. **Site Content Management:** All text displayed on the website (Collection page hero, About Us text, Contact Us text, etc.) must be stored in the database and editable from the Admin Panel.
+7. All of pages must be parts of one pages instead of seperate pages (like scrollable page).
 
 ## Constraints & Rules
 - Every time any sort of change is made, ensure alignment with this goals document.

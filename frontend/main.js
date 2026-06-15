@@ -1,5 +1,5 @@
 // IMPORTANT: Replace this URL with your actual Render URL after deploying!
-const PRODUCTION_API_URL = 'https://YOUR_RENDER_BACKEND_URL.onrender.com';
+const PRODUCTION_API_URL = 'https://khareen-api.onrender.com';
 
 const API_URL = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
     ? 'http://127.0.0.1:1111'
@@ -1044,7 +1044,7 @@ function loadAdminItems() {
                 const escapedNameEn = (item.name_en || '').replace(/'/g, "\\'");
                 const escapedDescAz = (item.description_az || '').replace(/\n/g, '\\n').replace(/'/g, "\\'");
                 const escapedDescEn = (item.description_en || '').replace(/\n/g, '\\n').replace(/'/g, "\\'");
-                
+
                 return `
                     <tr>
                         <td>${currentLang === 'az' ? (item.name_az || item.name_en) : (item.name_en || item.name_az)}</td>
