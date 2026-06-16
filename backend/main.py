@@ -6,6 +6,22 @@ from routers import items, contact, auth, site_content
 
 models.Base.metadata.create_all(bind=engine)
 
+from sqlalchemy import text
+try:
+    with engine.begin() as conn:
+        conn.execute(text("ALTER TABLE contact_forms ADD COLUMN event_date VARCHAR;"))
+except Exception:
+    pass
+try:
+    with engine.begin() as conn:
+        conn.execute(text("ALTER TABLE contact_forms ADD COLUMN occasion VARCHAR;"))
+except Exception:
+    pass
+try:
+    with engine.begin() as conn:
+        conn.execute(text("ALTER TABLE contact_forms ADD COLUMN size VARCHAR;"))
+except Exception:
+    pass
 app = FastAPI(title="Clothes Rental API")
 
 # Allow CORS for local testing

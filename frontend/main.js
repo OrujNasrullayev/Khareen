@@ -271,7 +271,10 @@ function ensureSinglePageLayout() {
                     </button>
                     <div class="slider-track-container" id="sliderTrackContainer">
                         <div class="slider-track" id="items-grid">
-                            <p>${t.loading}</p>
+                            <div class="spinner-container">
+                                <div class="spinner"></div>
+                                <div class="spinner-text">${t.loading}</div>
+                            </div>
                         </div>
                     </div>
                     <button class="slider-btn next-btn" id="sliderNextBtn" aria-label="Next dress">
