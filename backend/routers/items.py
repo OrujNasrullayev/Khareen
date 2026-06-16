@@ -1,6 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
 from sqlalchemy.orm import Session
 from typing import List
+import shutil
+import os
+import uuid
 
 import models
 import schemas
@@ -48,4 +51,23 @@ def delete_item(item_id: int, db: Session = Depends(get_db), token: str = Depend
     db.delete(db_item)
     db.commit()
     return {"message": f"Item {item_id} successfully deleted"}
+
+@router.post("/upload")
+def upload_files(files: List[UploadFile] = File(...), token: str = Depends(verify_admin_token)):
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    upload_dir = os.path.join(base_dir, "frontend", "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+    
+    urls = []
+    for file in files:
+        file_ext = os.path.splitext(file.filename)[1]
+        unique_filename = f"{uuid.uuid4()}{file_ext}"
+        file_path = os.path.join(upload_dir, unique_filename)
+        
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+            
+        urls.append(f"/uploads/{unique_filename}")
+        
+    return {"urls": urls}
 

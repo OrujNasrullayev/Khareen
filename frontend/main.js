@@ -78,6 +78,18 @@ const translations = {
         labelItemDesc: "Təsvir",
         labelItemPrice: "Qiymət (₼ günə)",
         labelItemImg: "Şəkil URL-i",
+        labelItemImages: "Əlavə Şəkil URL-ləri (vergüllə ayrılmış)",
+        labelItemUpload: "PC-dən Şəkillər Yüklə",
+        labelItemImagesManager: "Şəkil Qalereyası (Əsas şəkli seçin)",
+        setAsMain: "Əsas et",
+        mainLabel: "Əsas",
+        labelItemTestimonials: "Müştəri Rəyləri (JSON formatında)",
+        reviewsTitle: "Müştəri Rəyləri",
+        rentWhatsApp: "WhatsApp ilə İcarə Et",
+        closeBtn: "Bağla",
+        averageRating: "Orta Qiymətləndirmə",
+        noReviews: "Hələ heç bir rəy yazılmayıb.",
+        contactManually: "Və ya birbaşa əlaqə: <strong>+994 50 000 00 00</strong>",
         confirmDelete: "Bu məhsulu silmək istədiyinizdən əminsiniz?",
         confirmDeleteMsg: "Bu mesajı silmək istədiyinizdən əminsiniz?",
         items: {}
@@ -145,11 +157,57 @@ const translations = {
         labelItemDesc: "Description",
         labelItemPrice: "Price (₼ per day)",
         labelItemImg: "Image URL",
+        labelItemImages: "Additional Image URLs (comma-separated)",
+        labelItemUpload: "Upload Images from PC",
+        labelItemImagesManager: "Image Gallery (Select Main image)",
+        setAsMain: "Set Main",
+        mainLabel: "Main",
+        labelItemTestimonials: "Customer Reviews (JSON format)",
+        reviewsTitle: "Customer Reviews",
+        rentWhatsApp: "Rent via WhatsApp",
+        closeBtn: "Close",
+        averageRating: "Average Rating",
+        noReviews: "No reviews yet.",
+        contactManually: "Or direct contact: <strong>+994 50 000 00 00</strong>",
         confirmDelete: "Are you sure you want to delete this item?",
         confirmDeleteMsg: "Are you sure you want to delete this message?",
         items: {}
     }
 };
+
+function showToast(message, type = 'success') {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+
+    const icon = type === 'success' ? '✓' : '✕';
+
+    toast.innerHTML = `
+        <span class="toast-icon">${icon}</span>
+        <span class="toast-message">${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+        toast.classList.add('toast-fadeout');
+        const handleAnimationEnd = () => {
+            toast.removeEventListener('animationend', handleAnimationEnd);
+            toast.remove();
+            if (container.children.length === 0) {
+                container.remove();
+            }
+        };
+        toast.addEventListener('animationend', handleAnimationEnd);
+    }, 4000);
+}
 
 function updateUIText() {
     const t = translations[currentLang];
@@ -373,7 +431,6 @@ function ensureSinglePageLayout() {
                     <button type="submit">${t.btnSend}</button>
                     <p class="cta-caption">${t.ctaCaption}</p>
                 </form>
-                <p id="formStatus" style="text-align:center; margin-top:1rem; color:#818cf8;"></p>
             </section>
 
             <!-- Footer -->
@@ -436,6 +493,8 @@ function loadCollectionItems() {
                 }
             });
 
+            window.collectionItems = data;
+
             // Ensure we have at least 6 cards for smooth visual buffering on both sides
             const listToRender = data.length < 6 ? [...data, ...data] : data;
 
@@ -443,7 +502,7 @@ function loadCollectionItems() {
                 const translated = translateItem(item);
                 const loadingAttr = index < 6 ? 'eager' : 'lazy';
                 return `
-                    <div class="card">
+                    <div class="card" onclick="openDetailModal(${item.id})" style="cursor: pointer;">
                         <img class="card-img" src="${item.image_url || ''}" alt="${translated.name}" loading="${loadingAttr}" decoding="async">
                         <h3 class="card-title">${translated.name}</h3>
                         <p class="card-desc">${translated.description}</p>
@@ -673,11 +732,11 @@ function bindContactFormListener() {
         })
             .then(res => res.json())
             .then(() => {
-                document.getElementById('formStatus').innerText = t.statusSuccess;
+                showToast(t.statusSuccess, 'success');
                 form.reset();
             })
             .catch(err => {
-                document.getElementById('formStatus').innerText = t.statusError;
+                showToast(t.statusError, 'error');
                 console.error(err);
             });
     });
@@ -887,8 +946,17 @@ function renderAdmin() {
                         <input type="number" step="0.01" id="item-price" required>
                     </div>
                     <div class="form-group">
-                        <label>${t.labelItemImg}</label>
-                        <input type="url" id="item-img" required>
+                        <label>${t.labelItemUpload}</label>
+                        <input type="file" id="item-files" multiple accept="image/*" style="padding: 10px 0;">
+                        <div id="upload-progress-text" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; display: none;">Uploading...</div>
+                    </div>
+                    <div class="form-group">
+                        <label>${t.labelItemImagesManager}</label>
+                        <div id="admin-images-preview" class="admin-images-preview-grid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>${t.labelItemTestimonials}</label>
+                        <textarea id="item-testimonials" rows="4" placeholder='[{"reviewer": "Aysel", "rating": 5, "comment_az": "...", "comment_en": "..."}]'></textarea>
                     </div>
                     <div class="action-btns" style="margin-top: 2rem;">
                         <button type="submit" class="admin-btn">${t.btnSave}</button>
@@ -930,12 +998,104 @@ function renderAdmin() {
     const itemForm = document.getElementById('itemForm');
     const modalTitle = document.getElementById('modalTitle');
 
+    window.currentItemImages = [];
+
+    window.renderAdminImagesPreview = function() {
+        const previewContainer = document.getElementById('admin-images-preview');
+        if (!previewContainer) return;
+        
+        if (window.currentItemImages.length === 0) {
+            previewContainer.innerHTML = `<p style="font-size: 0.9rem; color: var(--text-muted); padding: 0.5rem 0;">${currentLang === 'az' ? 'Heç bir şəkil yüklənməyib.' : 'No images uploaded yet.'}</p>`;
+            return;
+        }
+        
+        previewContainer.innerHTML = window.currentItemImages.map((img, idx) => {
+            const displayUrl = img.url.startsWith('/') ? API_URL + img.url : img.url;
+            return `
+                <div class="admin-img-card ${img.isMain ? 'main' : ''}">
+                    <img src="${displayUrl}" alt="Preview ${idx + 1}">
+                    <div class="admin-img-actions">
+                        ${img.isMain 
+                            ? `<span class="main-badge">${translations[currentLang].mainLabel}</span>` 
+                            : `<button type="button" class="set-main-btn" onclick="window.setAdminImageMain(${idx})">${translations[currentLang].setAsMain}</button>`
+                        }
+                        <button type="button" class="del-img-btn" onclick="window.deleteAdminImage(${idx})">&times;</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    };
+    
+    window.setAdminImageMain = function(index) {
+        window.currentItemImages.forEach((img, idx) => {
+            img.isMain = (idx === index);
+        });
+        window.renderAdminImagesPreview();
+    };
+    
+    window.deleteAdminImage = function(index) {
+        window.currentItemImages.splice(index, 1);
+        if (window.currentItemImages.length > 0 && !window.currentItemImages.some(img => img.isMain)) {
+            window.currentItemImages[0].isMain = true;
+        }
+        window.renderAdminImagesPreview();
+    };
+
     btnAddItem.addEventListener('click', () => {
         editingItemId = null;
         modalTitle.innerText = t.modalAddTitle;
         itemForm.reset();
+        window.currentItemImages = [];
+        window.renderAdminImagesPreview();
         modal.style.display = 'flex';
     });
+
+    // Image uploader listener
+    const itemFilesInput = document.getElementById('item-files');
+    const progressText = document.getElementById('upload-progress-text');
+    
+    if (itemFilesInput) {
+        itemFilesInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length === 0) return;
+            
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            
+            if (progressText) progressText.style.display = 'block';
+            
+            fetch(`${API_URL}/items/upload`, {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: formData
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("Upload failed");
+                return res.json();
+            })
+            .then(data => {
+                if (progressText) progressText.style.display = 'none';
+                itemFilesInput.value = ''; // Reset input
+                
+                const hadMain = window.currentItemImages.some(img => img.isMain);
+                data.urls.forEach((url, index) => {
+                    window.currentItemImages.push({
+                        url: url,
+                        isMain: !hadMain && index === 0
+                    });
+                });
+                
+                window.renderAdminImagesPreview();
+            })
+            .catch(err => {
+                if (progressText) progressText.style.display = 'none';
+                alert("Error uploading images: " + err.message);
+                console.error(err);
+            });
+        });
+    }
 
     btnCloseModal.addEventListener('click', () => {
         modal.style.display = 'none';
@@ -955,13 +1115,32 @@ function renderAdmin() {
     // Item Submit (Create / Update)
     itemForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        if (!window.currentItemImages || window.currentItemImages.length === 0) {
+            alert(currentLang === 'az' ? "Zəhmət olmasa ən azı bir şəkil əlavə edin." : "Please add at least one image.");
+            return;
+        }
+
+        let mainImg = window.currentItemImages.find(img => img.isMain);
+        if (!mainImg) {
+            mainImg = window.currentItemImages[0];
+            mainImg.isMain = true;
+        }
+
+        const additionalImgs = window.currentItemImages
+            .filter(img => img !== mainImg)
+            .map(img => img.url)
+            .join(',');
+
         const payload = {
             name_az: document.getElementById('item-name-az').value,
             name_en: document.getElementById('item-name-en').value,
             description_az: document.getElementById('item-desc-az').value,
             description_en: document.getElementById('item-desc-en').value,
             price: parseFloat(document.getElementById('item-price').value),
-            image_url: document.getElementById('item-img').value
+            image_url: mainImg.url,
+            images: additionalImgs || null,
+            testimonials: document.getElementById('item-testimonials').value || null
         };
 
         const url = editingItemId ? `${API_URL}/items/${editingItemId}` : `${API_URL}/items/`;
@@ -1006,19 +1185,15 @@ function loadAdminItems() {
                 listContainer.innerHTML = `<tr><td colspan="3" style="text-align:center;">${currentLang === 'az' ? 'Heç bir məhsul tapılmadı.' : 'No items found.'}</td></tr>`;
                 return;
             }
+            window.adminItems = data;
             listContainer.innerHTML = data.map(item => {
-                const escapedNameAz = (item.name_az || '').replace(/'/g, "\\'");
-                const escapedNameEn = (item.name_en || '').replace(/'/g, "\\'");
-                const escapedDescAz = (item.description_az || '').replace(/\n/g, '\\n').replace(/'/g, "\\'");
-                const escapedDescEn = (item.description_en || '').replace(/\n/g, '\\n').replace(/'/g, "\\'");
-
                 return `
                     <tr>
                         <td>${currentLang === 'az' ? (item.name_az || item.name_en) : (item.name_en || item.name_az)}</td>
                         <td>₼${item.price}${t.perDay}</td>
                         <td>
                             <div class="action-btns">
-                                <button class="admin-btn" onclick="editItem(${item.id}, '${escapedNameAz}', '${escapedNameEn}', '${escapedDescAz}', '${escapedDescEn}', ${item.price}, '${item.image_url}')">${t.btnEdit}</button>
+                                <button class="admin-btn" onclick="editItem(${item.id})">${t.btnEdit}</button>
                                 <button class="admin-btn-danger" onclick="deleteItem(${item.id})">${t.btnDelete}</button>
                             </div>
                         </td>
@@ -1095,17 +1270,34 @@ function loadAdminMessages() {
         });
 }
 
-// Global actions attached to window for inline onclick execution
-window.editItem = function (id, nameAz, nameEn, descAz, descEn, price, imageUrl) {
+window.editItem = function (id) {
+    const item = (window.adminItems || []).find(i => i.id === id);
+    if (!item) return;
     const t = translations[currentLang];
     editingItemId = id;
     document.getElementById('modalTitle').innerText = t.modalEditTitle;
-    document.getElementById('item-name-az').value = nameAz;
-    document.getElementById('item-name-en').value = nameEn;
-    document.getElementById('item-desc-az').value = descAz;
-    document.getElementById('item-desc-en').value = descEn;
-    document.getElementById('item-price').value = price;
-    document.getElementById('item-img').value = imageUrl;
+    document.getElementById('item-name-az').value = item.name_az || '';
+    document.getElementById('item-name-en').value = item.name_en || '';
+    document.getElementById('item-desc-az').value = item.description_az || '';
+    document.getElementById('item-desc-en').value = item.description_en || '';
+    document.getElementById('item-price').value = item.price || 0;
+    document.getElementById('item-testimonials').value = item.testimonials || '';
+    
+    // Initialize currentItemImages
+    window.currentItemImages = [];
+    if (item.image_url) {
+        window.currentItemImages.push({ url: item.image_url, isMain: true });
+    }
+    if (item.images) {
+        const extraImgs = item.images.split(',').map(s => s.trim()).filter(Boolean);
+        extraImgs.forEach(img => {
+            if (img !== item.image_url) {
+                window.currentItemImages.push({ url: img, isMain: false });
+            }
+        });
+    }
+    window.renderAdminImagesPreview();
+
     document.getElementById('itemModal').style.display = 'flex';
 };
 
@@ -1180,6 +1372,166 @@ async function initApp() {
     await fetchSiteContent();
     updateUIText();
     window.addEventListener('hashchange', handleRouting);
+    
+    // Close modal on Escape key
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            window.closeDetailModal();
+        }
+    });
+
     handleRouting();
 }
 initApp();
+
+// --- Item Detail Modal ---
+window.openDetailModal = function(id) {
+    const item = (window.collectionItems || []).find(i => i.id === id);
+    if (!item) return;
+
+    const t = translations[currentLang];
+    const translated = translateItem(item);
+
+    let allImages = [];
+    if (item.image_url) allImages.push(item.image_url);
+    if (item.images) {
+        const extraImgs = item.images.split(',').map(s => s.trim()).filter(Boolean);
+        extraImgs.forEach(img => {
+            if (!allImages.includes(img)) {
+                allImages.push(img);
+            }
+        });
+    }
+
+    let reviews = [];
+    if (item.testimonials) {
+        try {
+            reviews = JSON.parse(item.testimonials);
+        } catch (e) {
+            console.error("Error parsing testimonials:", e);
+        }
+    }
+
+    let avgRating = 5.0;
+    if (reviews.length > 0) {
+        const sum = reviews.reduce((acc, r) => acc + (r.rating || 5), 0);
+        avgRating = (sum / reviews.length).toFixed(1);
+    }
+
+    const renderStars = (rating) => {
+        let starsHtml = '';
+        const fullStars = Math.floor(rating);
+        const hasHalf = rating % 1 >= 0.5;
+        for (let i = 1; i <= 5; i++) {
+            if (i <= fullStars) {
+                starsHtml += '<span class="star filled">★</span>';
+            } else if (i === fullStars + 1 && hasHalf) {
+                starsHtml += '<span class="star half">★</span>';
+            } else {
+                starsHtml += '<span class="star empty">★</span>';
+            }
+        }
+        return starsHtml;
+    };
+
+    const modal = document.getElementById('item-detail-modal');
+    if (!modal) return;
+
+    const thumbnailsHtml = allImages.map((img, idx) => `
+        <div class="thumb-wrapper ${idx === 0 ? 'active' : ''}" onclick="window.changeDetailMainImage('${img}', this)">
+            <img src="${img}" alt="${translated.name} thumbnail ${idx + 1}" loading="lazy">
+        </div>
+    `).join('');
+
+    const reviewsListHtml = reviews.length > 0 
+        ? reviews.map(r => {
+            const comment = currentLang === 'az' ? (r.comment_az || r.comment_en || '') : (r.comment_en || r.comment_az || '');
+            return `
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">${r.reviewer || 'Anonymous'}</span>
+                        <div class="review-stars">${renderStars(r.rating || 5)}</div>
+                    </div>
+                    <p class="review-comment">${comment}</p>
+                </div>
+            `;
+          }).join('')
+        : `<p class="no-reviews-msg">${t.noReviews}</p>`;
+
+    const waText = currentLang === 'az' 
+        ? `Salam KháReen! Mən "${translated.name}" libasını (gündəlik ₼${translated.price}) icarəyə götürmək istəyirəm. Zəhmət olmasa mövcudluğu haqqında məlumat verərdiniz.`
+        : `Hi KháReen! I am interested in renting the "${translated.name}" (${translated.price}₼/day). Please let me know its availability.`;
+    const waLink = `https://wa.me/994500000000?text=${encodeURIComponent(waText)}`;
+
+    modal.innerHTML = `
+        <div class="modal-backdrop" onclick="window.closeDetailModal()"></div>
+        <div class="detail-modal-container">
+            <button class="detail-modal-close" onclick="window.closeDetailModal()">&times;</button>
+            <div class="detail-modal-grid">
+                <div class="detail-gallery-col">
+                    <div class="main-image-viewport">
+                        <img id="detail-main-img" src="${allImages[0] || ''}" alt="${translated.name}">
+                    </div>
+                    ${allImages.length > 1 ? `<div class="detail-thumbnails-row">${thumbnailsHtml}</div>` : ''}
+                </div>
+                <div class="detail-info-col">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                        <h2 class="detail-item-title">${translated.name}</h2>
+                        <span class="detail-price-pill">₼${translated.price}${t.perDay}</span>
+                    </div>
+                    
+                    <div class="detail-rating-summary">
+                        <span class="avg-rating-num">${avgRating}</span>
+                        <div class="stars-row">${renderStars(avgRating)}</div>
+                        <span class="reviews-count">(${reviews.length} ${currentLang === 'az' ? 'rəy' : 'reviews'})</span>
+                    </div>
+
+                    <div class="detail-desc-section">
+                        <p class="detail-desc-text">${translated.description}</p>
+                    </div>
+
+                    <div class="detail-testimonials-section">
+                        <h4 class="testimonials-header">${t.reviewsTitle}</h4>
+                        <div class="testimonials-list-container">
+                            ${reviewsListHtml}
+                        </div>
+                    </div>
+
+                    <div class="detail-actions-section">
+                        <a href="${waLink}" target="_blank" class="btn-whatsapp-rent">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.455h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                            <span>${t.rentWhatsApp}</span>
+                        </a>
+                        <p class="manual-contact-text">${t.contactManually}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeDetailModal = function() {
+    const modal = document.getElementById('item-detail-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        modal.innerHTML = '';
+    }
+    document.body.style.overflow = '';
+};
+
+window.changeDetailMainImage = function(imgUrl, thumbEl) {
+    const mainImg = document.getElementById('detail-main-img');
+    if (mainImg) {
+        mainImg.src = imgUrl;
+    }
+    const thumbs = document.querySelectorAll('.thumb-wrapper');
+    thumbs.forEach(t => t.classList.remove('active'));
+    if (thumbEl) {
+        thumbEl.classList.add('active');
+    }
+};

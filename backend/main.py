@@ -22,6 +22,16 @@ try:
         conn.execute(text("ALTER TABLE contact_forms ADD COLUMN size VARCHAR;"))
 except Exception:
     pass
+try:
+    with engine.begin() as conn:
+        conn.execute(text("ALTER TABLE items ADD COLUMN images TEXT;"))
+except Exception:
+    pass
+try:
+    with engine.begin() as conn:
+        conn.execute(text("ALTER TABLE items ADD COLUMN testimonials TEXT;"))
+except Exception:
+    pass
 app = FastAPI(title="Clothes Rental API")
 
 # Allow CORS for local testing

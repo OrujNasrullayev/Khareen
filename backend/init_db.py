@@ -42,7 +42,9 @@ try:
             description_az="Eleqant tünd göy rəngli məxmər ziyafət libası, rəsmi tədbirlər və qala gecələri üçün mükəmməldir.",
             description_en="Elegant midnight blue velvet gown, perfect for formal events and black-tie galas.",
             price=85.00,
-            image_url="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80"
+            image_url="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80",
+            images="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80,https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80,https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80",
+            testimonials='[{"reviewer": "Aysel M.", "rating": 5, "comment_az": "Toy üçün kirayələdim, hər kəs çox bəyəndi! Çox keyfiyyətli parçası var.", "comment_en": "Rented for a wedding, everyone loved it! Very high quality fabric."}, {"reviewer": "Könül T.", "rating": 4.5, "comment_az": "Ölçüsü tam uyğun gəldi, olduqca eleqant görünür.", "comment_en": "The size fit perfectly, looks very elegant."}]'
         ),
         models.Item(
             name_az="Klassik Tvidd Blazer",
@@ -50,7 +52,9 @@ try:
             description_az="Zərif qızılı düymələrlə premium tvidd blazer. Zamanı üstələyən üslub.",
             description_en="Premium heritage tweed blazer with subtle gold buttons. Timeless styling.",
             price=45.00,
-            image_url="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80"
+            image_url="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80",
+            images="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80,https://images.unsplash.com/photo-1548624149-f7b3160304d3?w=500&q=80",
+            testimonials='[{"reviewer": "Leyla H.", "rating": 5, "comment_az": "İşgüzar görüş üçün icarəyə götürdüm. Çox premium görünüşü var.", "comment_en": "Rented for a business meeting. Has a very premium look."}]'
         ),
         models.Item(
             name_az="Dizayner İpək Trençkotu",
@@ -58,7 +62,9 @@ try:
             description_az="Qumlu bej rəngdə yüngül ipək qarışığı trençkot. Nəfəs ala bilən və ultra-premium.",
             description_en="Lightweight silk blend trench coat in sandy beige. Breathable and ultra-premium.",
             price=95.00,
-            image_url="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80"
+            image_url="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80",
+            images="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80,https://images.unsplash.com/photo-1548624149-f7b3160304d3?w=500&q=80",
+            testimonials='[{"reviewer": "Fidan Q.", "rating": 4.8, "comment_az": "Nəfəs alan materialdır, foto-sessiya üçün əla seçimdir.", "comment_en": "Breathable material, excellent choice for a photoshoot."}]'
         ),
         models.Item(
             name_az="Satin Güllü Midi Libas",
@@ -66,7 +72,9 @@ try:
             description_az="Axıcı satendə parlaq güllü midi libas. Toylar və yay partiləri üçün əladır.",
             description_en="Vibrant floral print midi dress in fluid satin. Great for weddings and summer parties.",
             price=55.00,
-            image_url="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80"
+            image_url="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80",
+            images="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80,https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80",
+            testimonials='[{"reviewer": "Günay Ə.", "rating": 5, "comment_az": "Yay partisi üçün mükəmməldir. Parlaq və rəngarəngdir.", "comment_en": "Perfect for a summer party. Bright and colorful."}]'
         )
     ]
     db.add_all(dummy_items)

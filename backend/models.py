@@ -11,6 +11,8 @@ class Item(Base):
     description_en = Column(Text)
     image_url = Column(String)
     price = Column(Float)
+    images = Column(Text, nullable=True)
+    testimonials = Column(Text, nullable=True)
 
 class ContactForm(Base):
     __tablename__ = "contact_forms"
