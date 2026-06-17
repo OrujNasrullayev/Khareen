@@ -20,13 +20,13 @@ const translations = {
         navCollection: "Kolleksiya",
         navAbout: "Haqqımızda",
         navContact: "Bizimlə Əlaqə",
-        heroTag: "Premium Tədbir Libaslarının İcarəsi",
-        heroTitle: "Üslubunuzu Ucaldın.<br>Ən fərqlini <br><span class=\"gradient-text\">İcarə edin</span>.",
-        heroSubtitle: "Kürator tərəfindən seçilmiş dizayner geyimlərinə və podiuma hazır ziyafət libaslarına pərakəndə satış qiymətinin cüzi bir hissəsi ilə sahib olun. Ən yaddaqalan anlarınız üçün hazırlanmış davamlı dəbdəbə.",
-        heroBtnBrowse: "Kolleksiyaya Baxın",
-        heroBtnStory: "Hekayəmiz",
-        collTitle: "Bizim Kolleksiya",
-        collSubtitle: "İcarəyə verilən premium geyimlər.",
+        heroTag: "Lüks Tədbir Geyimləri",
+        heroTitle: "Gecənin Sahibi Ol.<br><span class=\"gradient-text\">Libasın Yox.</span>",
+        heroSubtitle: "Biz dizayn edirik, axtarırıq, hazırlayırıq ki, siz seçiləsiniz. Gözqamaşdırıcı podium üslubu ilə diqqət mərkəzində ola biləcəyiniz halda, niyə bir gecəlik libas satın alasınız?",
+        heroBtnBrowse: "Kolleksiyanı Kəşf Edin",
+        heroBtnStory: "Hekayəmizi Öyrənin",
+        collTitle: "Kolleksiyamız",
+        collSubtitle: "Həm də sizin",
         loading: "Məhsullar yüklənir...",
         noItems: "Hazırda heç bir məhsul yoxdur. Sonra yenidən yoxlayın!",
         errorLoading: "Məhsulların yüklənməsində xəta baş verdi.",
@@ -83,12 +83,8 @@ const translations = {
         labelItemImagesManager: "Şəkil Qalereyası (Əsas şəkli seçin)",
         setAsMain: "Əsas et",
         mainLabel: "Əsas",
-        labelItemTestimonials: "Müştəri Rəyləri (JSON formatında)",
-        reviewsTitle: "Müştəri Rəyləri",
-        rentWhatsApp: "WhatsApp ilə İcarə Et",
+        rentWhatsApp: "Whatsapp ilə danış",
         closeBtn: "Bağla",
-        averageRating: "Orta Qiymətləndirmə",
-        noReviews: "Hələ heç bir rəy yazılmayıb.",
         contactManually: "Və ya birbaşa əlaqə: <strong>+994 50 000 00 00</strong>",
         confirmDelete: "Bu məhsulu silmək istədiyinizdən əminsiniz?",
         confirmDeleteMsg: "Bu mesajı silmək istədiyinizdən əminsiniz?",
@@ -99,13 +95,13 @@ const translations = {
         navCollection: "Collection",
         navAbout: "About Us",
         navContact: "Contact Us",
-        heroTag: "Premium Event Dress Rentals",
-        heroTitle: "Elevate Your Style.<br>Rent the <span class=\"gradient-text\">Extraordinary</span>.",
-        heroSubtitle: "Access curated designer gowns and runway-ready event dresses for a fraction of the retail price. Sustainable luxury tailored for your most memorable moments.",
-        heroBtnBrowse: "Browse Collection",
-        heroBtnStory: "Our Story",
+        heroTag: "LUXERY EVENT WEAR",
+        heroTitle: "Own the Night.<br><span class=\"gradient-text\">Never the Dress.</span>",
+        heroSubtitle: "We design, we search, we make, so that you stand out. Why buy for a single night when you can claim the room in extraordinary runway style?",
+        heroBtnBrowse: "Explore the Collection",
+        heroBtnStory: "Learn Our Story",
         collTitle: "Our Collection",
-        collSubtitle: "Premium clothing available for rent.",
+        collSubtitle: "Also yours",
         loading: "Loading items...",
         noItems: "No items available right now. Check back later!",
         errorLoading: "Error loading items.",
@@ -162,12 +158,8 @@ const translations = {
         labelItemImagesManager: "Image Gallery (Select Main image)",
         setAsMain: "Set Main",
         mainLabel: "Main",
-        labelItemTestimonials: "Customer Reviews (JSON format)",
-        reviewsTitle: "Customer Reviews",
-        rentWhatsApp: "Rent via WhatsApp",
+        rentWhatsApp: "Chat via Whatsapp",
         closeBtn: "Close",
-        averageRating: "Average Rating",
-        noReviews: "No reviews yet.",
         contactManually: "Or direct contact: <strong>+994 50 000 00 00</strong>",
         confirmDelete: "Are you sure you want to delete this item?",
         confirmDeleteMsg: "Are you sure you want to delete this message?",
@@ -925,38 +917,36 @@ function renderAdmin() {
             <div class="modal-content">
                 <h2 id="modalTitle" style="margin-bottom: 1.5rem;">${t.addNewItem}</h2>
                 <form id="itemForm">
-                    <div class="form-group">
-                        <label>${currentLang === 'az' ? 'Məhsulun Adı (AZ)' : 'Item Name (AZ)'}</label>
-                        <input type="text" id="item-name-az" required>
-                    </div>
-                    <div class="form-group">
-                        <label>${currentLang === 'az' ? 'Məhsulun Adı (EN)' : 'Item Name (EN)'}</label>
-                        <input type="text" id="item-name-en" required>
-                    </div>
-                    <div class="form-group">
-                        <label>${currentLang === 'az' ? 'Təsvir (AZ)' : 'Description (AZ)'}</label>
-                        <textarea id="item-desc-az" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>${currentLang === 'az' ? 'Təsvir (EN)' : 'Description (EN)'}</label>
-                        <textarea id="item-desc-en" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>${t.labelItemPrice}</label>
-                        <input type="number" step="0.01" id="item-price" required>
-                    </div>
-                    <div class="form-group">
-                        <label>${t.labelItemUpload}</label>
-                        <input type="file" id="item-files" multiple accept="image/*" style="padding: 10px 0;">
-                        <div id="upload-progress-text" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; display: none;">Uploading...</div>
-                    </div>
-                    <div class="form-group">
-                        <label>${t.labelItemImagesManager}</label>
-                        <div id="admin-images-preview" class="admin-images-preview-grid"></div>
-                    </div>
-                    <div class="form-group">
-                        <label>${t.labelItemTestimonials}</label>
-                        <textarea id="item-testimonials" rows="4" placeholder='[{"reviewer": "Aysel", "rating": 5, "comment_az": "...", "comment_en": "..."}]'></textarea>
+                    <div class="admin-form-grid">
+                        <div class="form-group">
+                            <label>${currentLang === 'az' ? 'Məhsulun Adı (AZ)' : 'Item Name (AZ)'}</label>
+                            <input type="text" id="item-name-az" required>
+                        </div>
+                        <div class="form-group">
+                            <label>${currentLang === 'az' ? 'Məhsulun Adı (EN)' : 'Item Name (EN)'}</label>
+                            <input type="text" id="item-name-en" required>
+                        </div>
+                        <div class="form-group">
+                            <label>${currentLang === 'az' ? 'Təsvir (AZ)' : 'Description (AZ)'}</label>
+                            <textarea id="item-desc-az" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>${currentLang === 'az' ? 'Təsvir (EN)' : 'Description (EN)'}</label>
+                            <textarea id="item-desc-en" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>${t.labelItemPrice}</label>
+                            <input type="number" step="0.01" id="item-price" required>
+                        </div>
+                        <div class="form-group">
+                            <label>${t.labelItemUpload}</label>
+                            <input type="file" id="item-files" multiple accept="image/*" style="padding: 10px 0;">
+                            <div id="upload-progress-text" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; display: none;">Uploading...</div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>${t.labelItemImagesManager}</label>
+                            <div id="admin-images-preview" class="admin-images-preview-grid"></div>
+                        </div>
                     </div>
                     <div class="action-btns" style="margin-top: 2rem;">
                         <button type="submit" class="admin-btn">${t.btnSave}</button>
@@ -1139,8 +1129,7 @@ function renderAdmin() {
             description_en: document.getElementById('item-desc-en').value,
             price: parseFloat(document.getElementById('item-price').value),
             image_url: mainImg.url,
-            images: additionalImgs || null,
-            testimonials: document.getElementById('item-testimonials').value || null
+            images: additionalImgs || null
         };
 
         const url = editingItemId ? `${API_URL}/items/${editingItemId}` : `${API_URL}/items/`;
@@ -1281,7 +1270,6 @@ window.editItem = function (id) {
     document.getElementById('item-desc-az').value = item.description_az || '';
     document.getElementById('item-desc-en').value = item.description_en || '';
     document.getElementById('item-price').value = item.price || 0;
-    document.getElementById('item-testimonials').value = item.testimonials || '';
     
     // Initialize currentItemImages
     window.currentItemImages = [];
@@ -1367,10 +1355,33 @@ async function fetchSiteContent() {
     }
 }
 
+// Mobile menu toggle logic
+function setupMobileMenu() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        navLinks.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+}
+
 // Initialize App
 async function initApp() {
     await fetchSiteContent();
     updateUIText();
+    setupMobileMenu();
     window.addEventListener('hashchange', handleRouting);
     
     // Close modal on Escape key
@@ -1403,37 +1414,6 @@ window.openDetailModal = function(id) {
         });
     }
 
-    let reviews = [];
-    if (item.testimonials) {
-        try {
-            reviews = JSON.parse(item.testimonials);
-        } catch (e) {
-            console.error("Error parsing testimonials:", e);
-        }
-    }
-
-    let avgRating = 5.0;
-    if (reviews.length > 0) {
-        const sum = reviews.reduce((acc, r) => acc + (r.rating || 5), 0);
-        avgRating = (sum / reviews.length).toFixed(1);
-    }
-
-    const renderStars = (rating) => {
-        let starsHtml = '';
-        const fullStars = Math.floor(rating);
-        const hasHalf = rating % 1 >= 0.5;
-        for (let i = 1; i <= 5; i++) {
-            if (i <= fullStars) {
-                starsHtml += '<span class="star filled">★</span>';
-            } else if (i === fullStars + 1 && hasHalf) {
-                starsHtml += '<span class="star half">★</span>';
-            } else {
-                starsHtml += '<span class="star empty">★</span>';
-            }
-        }
-        return starsHtml;
-    };
-
     const modal = document.getElementById('item-detail-modal');
     if (!modal) return;
 
@@ -1442,21 +1422,6 @@ window.openDetailModal = function(id) {
             <img src="${img}" alt="${translated.name} thumbnail ${idx + 1}" loading="lazy">
         </div>
     `).join('');
-
-    const reviewsListHtml = reviews.length > 0 
-        ? reviews.map(r => {
-            const comment = currentLang === 'az' ? (r.comment_az || r.comment_en || '') : (r.comment_en || r.comment_az || '');
-            return `
-                <div class="review-card">
-                    <div class="review-header">
-                        <span class="reviewer-name">${r.reviewer || 'Anonymous'}</span>
-                        <div class="review-stars">${renderStars(r.rating || 5)}</div>
-                    </div>
-                    <p class="review-comment">${comment}</p>
-                </div>
-            `;
-          }).join('')
-        : `<p class="no-reviews-msg">${t.noReviews}</p>`;
 
     const waText = currentLang === 'az' 
         ? `Salam KháReen! Mən "${translated.name}" libasını (gündəlik ₼${translated.price}) icarəyə götürmək istəyirəm. Zəhmət olmasa mövcudluğu haqqında məlumat verərdiniz.`
@@ -1479,22 +1444,9 @@ window.openDetailModal = function(id) {
                         <h2 class="detail-item-title">${translated.name}</h2>
                         <span class="detail-price-pill">₼${translated.price}${t.perDay}</span>
                     </div>
-                    
-                    <div class="detail-rating-summary">
-                        <span class="avg-rating-num">${avgRating}</span>
-                        <div class="stars-row">${renderStars(avgRating)}</div>
-                        <span class="reviews-count">(${reviews.length} ${currentLang === 'az' ? 'rəy' : 'reviews'})</span>
-                    </div>
 
                     <div class="detail-desc-section">
                         <p class="detail-desc-text">${translated.description}</p>
-                    </div>
-
-                    <div class="detail-testimonials-section">
-                        <h4 class="testimonials-header">${t.reviewsTitle}</h4>
-                        <div class="testimonials-list-container">
-                            ${reviewsListHtml}
-                        </div>
                     </div>
 
                     <div class="detail-actions-section">

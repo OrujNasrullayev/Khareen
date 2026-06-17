@@ -9,7 +9,6 @@ class ItemBase(BaseModel):
     image_url: Optional[str] = None
     price: float
     images: Optional[str] = None
-    testimonials: Optional[str] = None
 
 class ItemCreate(ItemBase):
     pass

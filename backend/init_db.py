@@ -43,8 +43,7 @@ try:
             description_en="Elegant midnight blue velvet gown, perfect for formal events and black-tie galas.",
             price=85.00,
             image_url="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80",
-            images="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80,https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80,https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80",
-            testimonials='[{"reviewer": "Aysel M.", "rating": 5, "comment_az": "Toy üçün kirayələdim, hər kəs çox bəyəndi! Çox keyfiyyətli parçası var.", "comment_en": "Rented for a wedding, everyone loved it! Very high quality fabric."}, {"reviewer": "Könül T.", "rating": 4.5, "comment_az": "Ölçüsü tam uyğun gəldi, olduqca eleqant görünür.", "comment_en": "The size fit perfectly, looks very elegant."}]'
+            images="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80,https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80,https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80"
         ),
         models.Item(
             name_az="Klassik Tvidd Blazer",
@@ -53,8 +52,7 @@ try:
             description_en="Premium heritage tweed blazer with subtle gold buttons. Timeless styling.",
             price=45.00,
             image_url="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80",
-            images="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80,https://images.unsplash.com/photo-1548624149-f7b3160304d3?w=500&q=80",
-            testimonials='[{"reviewer": "Leyla H.", "rating": 5, "comment_az": "İşgüzar görüş üçün icarəyə götürdüm. Çox premium görünüşü var.", "comment_en": "Rented for a business meeting. Has a very premium look."}]'
+            images="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80,https://images.unsplash.com/photo-1548624149-f7b3160304d3?w=500&q=80"
         ),
         models.Item(
             name_az="Dizayner İpək Trençkotu",
@@ -63,8 +61,7 @@ try:
             description_en="Lightweight silk blend trench coat in sandy beige. Breathable and ultra-premium.",
             price=95.00,
             image_url="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80",
-            images="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80,https://images.unsplash.com/photo-1548624149-f7b3160304d3?w=500&q=80",
-            testimonials='[{"reviewer": "Fidan Q.", "rating": 4.8, "comment_az": "Nəfəs alan materialdır, foto-sessiya üçün əla seçimdir.", "comment_en": "Breathable material, excellent choice for a photoshoot."}]'
+            images="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80,https://images.unsplash.com/photo-1548624149-f7b3160304d3?w=500&q=80"
         ),
         models.Item(
             name_az="Satin Güllü Midi Libas",
@@ -73,8 +70,7 @@ try:
             description_en="Vibrant floral print midi dress in fluid satin. Great for weddings and summer parties.",
             price=55.00,
             image_url="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80",
-            images="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80,https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80",
-            testimonials='[{"reviewer": "Günay Ə.", "rating": 5, "comment_az": "Yay partisi üçün mükəmməldir. Parlaq və rəngarəngdir.", "comment_en": "Perfect for a summer party. Bright and colorful."}]'
+            images="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80,https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80"
         )
     ]
     db.add_all(dummy_items)
@@ -92,22 +88,22 @@ try:
         models.SiteContent(key="nav_contact_en", value="Contact Us", page="nav", label="Navbar: Contact (EN)"),
 
         # Hero section
-        models.SiteContent(key="hero_tag_az", value="Premium Tədbir Libaslarının İcarəsi", page="home", label="Hero: Tag (AZ)"),
-        models.SiteContent(key="hero_tag_en", value="Premium Event Dress Rentals", page="home", label="Hero: Tag (EN)"),
-        models.SiteContent(key="hero_title_az", value="Üslubunuzu Ucaldın.<br>Ən fərqlini <br><span class=\"gradient-text\">İcarə edin</span>.", page="home", label="Hero: Title (AZ)"),
-        models.SiteContent(key="hero_title_en", value="Elevate Your Style.<br>Rent the <span class=\"gradient-text\">Extraordinary</span>.", page="home", label="Hero: Title (EN)"),
-        models.SiteContent(key="hero_subtitle_az", value="Kürator tərəfindən seçilmiş dizayner geyimlərinə və podiuma hazır ziyafət libaslarına pərakəndə satış qiymətinin cüzi bir hissəsi ilə sahib olun. Ən yaddaqalan anlarınız üçün hazırlanmış davamlı dəbdəbə.", page="home", label="Hero: Subtitle (AZ)"),
-        models.SiteContent(key="hero_subtitle_en", value="Access curated designer gowns and runway-ready event dresses for a fraction of the retail price. Sustainable luxury tailored for your most memorable moments.", page="home", label="Hero: Subtitle (EN)"),
-        models.SiteContent(key="hero_btn_browse_az", value="Kolleksiyaya Baxın", page="home", label="Hero: Browse Button (AZ)"),
-        models.SiteContent(key="hero_btn_browse_en", value="Browse Collection", page="home", label="Hero: Browse Button (EN)"),
-        models.SiteContent(key="hero_btn_story_az", value="Hekayəmiz", page="home", label="Hero: Story Button (AZ)"),
-        models.SiteContent(key="hero_btn_story_en", value="Our Story", page="home", label="Hero: Story Button (EN)"),
+        models.SiteContent(key="hero_tag_az", value="Lüks Tədbir Geyimləri", page="home", label="Hero: Tag (AZ)"),
+        models.SiteContent(key="hero_tag_en", value="LUXERY EVENT WEAR", page="home", label="Hero: Tag (EN)"),
+        models.SiteContent(key="hero_title_az", value="Gecənin Sahibi Ol.<br><span class=\"gradient-text\">Libasın Yox.</span>", page="home", label="Hero: Title (AZ)"),
+        models.SiteContent(key="hero_title_en", value="Own the Night.<br><span class=\"gradient-text\">Never the Dress.</span>", page="home", label="Hero: Title (EN)"),
+        models.SiteContent(key="hero_subtitle_az", value="Biz dizayn edirik, axtarırıq, hazırlayırıq ki, siz seçiləsiniz. Gözqamaşdırıcı podium üslubu ilə diqqət mərkəzində ola biləcəyiniz halda, niyə bir gecəlik libas satın alasınız?", page="home", label="Hero: Subtitle (AZ)"),
+        models.SiteContent(key="hero_subtitle_en", value="We design, we search, we make, so that you stand out. Why buy for a single night when you can claim the room in extraordinary runway style?", page="home", label="Hero: Subtitle (EN)"),
+        models.SiteContent(key="hero_btn_browse_az", value="Kolleksiyanı Kəşf Edin", page="home", label="Hero: Browse Button (AZ)"),
+        models.SiteContent(key="hero_btn_browse_en", value="Explore the Collection", page="home", label="Hero: Browse Button (EN)"),
+        models.SiteContent(key="hero_btn_story_az", value="Hekayəmizi Öyrənin", page="home", label="Hero: Story Button (AZ)"),
+        models.SiteContent(key="hero_btn_story_en", value="Learn Our Story", page="home", label="Hero: Story Button (EN)"),
 
         # Collection section
-        models.SiteContent(key="coll_title_az", value="Bizim Kolleksiya", page="collection", label="Collection: Title (AZ)"),
+        models.SiteContent(key="coll_title_az", value="Kolleksiyamız", page="collection", label="Collection: Title (AZ)"),
         models.SiteContent(key="coll_title_en", value="Our Collection", page="collection", label="Collection: Title (EN)"),
-        models.SiteContent(key="coll_subtitle_az", value="İcarəyə verilən premium geyimlər.", page="collection", label="Collection: Subtitle (AZ)"),
-        models.SiteContent(key="coll_subtitle_en", value="Premium clothing available for rent.", page="collection", label="Collection: Subtitle (EN)"),
+        models.SiteContent(key="coll_subtitle_az", value="Həm də sizin", page="collection", label="Collection: Subtitle (AZ)"),
+        models.SiteContent(key="coll_subtitle_en", value="Also yours", page="collection", label="Collection: Subtitle (EN)"),
 
         # About Us section
         models.SiteContent(key="about_title_az", value="Haqqımızda", page="about", label="About: Title (AZ)"),

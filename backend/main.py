@@ -27,11 +27,6 @@ try:
         conn.execute(text("ALTER TABLE items ADD COLUMN images TEXT;"))
 except Exception:
     pass
-try:
-    with engine.begin() as conn:
-        conn.execute(text("ALTER TABLE items ADD COLUMN testimonials TEXT;"))
-except Exception:
-    pass
 app = FastAPI(title="Clothes Rental API")
 
 # Allow CORS for local testing
@@ -55,5 +50,5 @@ app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 
 if __name__ == "__main__":
     import uvicorn
-    # The prompt explicitly requested running on localhost 1111
-    uvicorn.run("main:app", host="127.0.0.1", port=1111, reload=True)
+    # Accessible to the whole network on port 1111
+    uvicorn.run("main:app", host="0.0.0.0", port=1111, reload=True)
