@@ -1253,6 +1253,7 @@ button:hover {
     bottom: 24px;
     right: 24px;
     z-index: 9999;
+}
 
 /* Skeleton Loader Styles */
 .skeleton {
