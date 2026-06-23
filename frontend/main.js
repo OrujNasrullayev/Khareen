@@ -321,9 +321,25 @@ function ensureSinglePageLayout() {
                     </button>
                     <div class="slider-track-container" id="sliderTrackContainer">
                         <div class="slider-track" id="items-grid">
-                            <div class="spinner-container">
-                                <div class="spinner"></div>
-                                <div class="spinner-text">${t.loading}</div>
+                            <div class="skeleton-card">
+                                <div class="skeleton skeleton-card-img"></div>
+                                <div class="skeleton skeleton-card-text"></div>
+                                <div class="skeleton skeleton-card-text short"></div>
+                            </div>
+                            <div class="skeleton-card">
+                                <div class="skeleton skeleton-card-img"></div>
+                                <div class="skeleton skeleton-card-text"></div>
+                                <div class="skeleton skeleton-card-text short"></div>
+                            </div>
+                            <div class="skeleton-card">
+                                <div class="skeleton skeleton-card-img"></div>
+                                <div class="skeleton skeleton-card-text"></div>
+                                <div class="skeleton skeleton-card-text short"></div>
+                            </div>
+                            <div class="skeleton-card">
+                                <div class="skeleton skeleton-card-img"></div>
+                                <div class="skeleton skeleton-card-text"></div>
+                                <div class="skeleton skeleton-card-text short"></div>
                             </div>
                         </div>
                     </div>
