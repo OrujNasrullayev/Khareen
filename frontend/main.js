@@ -362,10 +362,10 @@ function ensureSinglePageLayout() {
                     </div>
                     <div class="about-images">
                         <div class="about-img-wrapper img-1">
-                            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80" alt="KháReen Boutique" loading="lazy">
+                            <img src="assets/about1.png" alt="KháReen Boutique" loading="lazy">
                         </div>
                         <div class="about-img-wrapper img-2">
-                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80" alt="KháReen Editorial" loading="lazy">
+                            <img src="assets/about2.png" alt="KháReen Editorial" loading="lazy">
                         </div>
                     </div>
                 </div>
