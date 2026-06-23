@@ -8,8 +8,8 @@ services:
       - "1111:1111"
     volumes:
       - .:/var/www
-      # Map the frontend uploads folder so the app can upload to it
-      - ../frontend/uploads:/frontend/uploads
+      # Map the frontend folder so Laravel can serve it
+      - ../frontend:/frontend
     depends_on:
       - db
     environment:

@@ -11,11 +11,17 @@ class SiteContentController extends Controller
     {
         $query = SiteContent::query();
 
-        if ($request->has('page')) {
-            $query->where('page', $request->query('page'));
-        }
+        $page = $request->query('page', 'all');
+        $cacheKey = "site_content_{$page}";
 
-        return response()->json($query->orderBy('id')->get());
+        $content = \Illuminate\Support\Facades\Cache::remember($cacheKey, 86400, function () use ($query, $request) {
+            if ($request->has('page')) {
+                $query->where('page', $request->query('page'));
+            }
+            return $query->orderBy('id')->get();
+        });
+
+        return response()->json($content);
     }
 
     public function update(Request $request, $key)
@@ -31,6 +37,7 @@ class SiteContentController extends Controller
         ]);
 
         $item->update($data);
+        \Illuminate\Support\Facades\Cache::flush(); // Invalidate cache
         return response()->json($item);
     }
 }

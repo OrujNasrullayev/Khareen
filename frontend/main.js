@@ -517,7 +517,7 @@ let isCarouselAutoScrolling = true;
 let carouselCurrentX = 0;
 let carouselLastScrollAmount = 0;
 let isCarouselTransitioning = false;
-const carouselSpeed = 0.8; // pixels per frame at 60fps (~48px/s)
+const carouselSpeed = 2.0; // pixels per frame at 60fps (~120px/s)
 
 function setupEndlessCarousel() {
     const container = document.getElementById('sliderTrackContainer');
@@ -1051,7 +1051,7 @@ function renderAdmin() {
             
             const formData = new FormData();
             for (let i = 0; i < files.length; i++) {
-                formData.append('files', files[i]);
+                formData.append('files[]', files[i]);
             }
             
             if (progressText) progressText.style.display = 'block';

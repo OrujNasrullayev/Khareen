@@ -13,7 +13,12 @@ class ItemController extends Controller
         $skip = $request->query('skip', 0);
         $limit = $request->query('limit', 100);
 
-        return response()->json(Item::skip($skip)->take($limit)->get());
+        $cacheKey = "items_{$skip}_{$limit}";
+        $items = \Illuminate\Support\Facades\Cache::remember($cacheKey, 86400, function () use ($skip, $limit) {
+            return Item::skip($skip)->take($limit)->get();
+        });
+
+        return response()->json($items);
     }
 
     public function store(Request $request)
@@ -29,6 +34,7 @@ class ItemController extends Controller
         ]);
 
         $item = Item::create($data);
+        \Illuminate\Support\Facades\Cache::flush(); // Invalidate cache
         return response()->json($item, 200); // 200 to match python
     }
 
@@ -50,6 +56,7 @@ class ItemController extends Controller
         ]);
 
         $item->update($data);
+        \Illuminate\Support\Facades\Cache::flush(); // Invalidate cache
         return response()->json($item);
     }
 
@@ -61,15 +68,30 @@ class ItemController extends Controller
         }
 
         $item->delete();
+        \Illuminate\Support\Facades\Cache::flush(); // Invalidate cache
         return response()->json(['message' => "Item {$id} successfully deleted"]);
     }
 
     public function upload(Request $request)
     {
         $request->validate([
-            'files' => 'required|array',
-            'files.*' => 'file'
+            'files' => 'required',
         ]);
+
+        $files = $request->file('files');
+        $debug = [
+            'type' => gettype($files),
+            'is_array' => is_array($files),
+            'count' => is_array($files) ? count($files) : 1
+        ];
+
+        if (!$files) {
+            return response()->json(['detail' => 'No valid files provided'], 422);
+        }
+
+        if (!is_array($files)) {
+            $files = [$files];
+        }
 
         // Laravel public_path() points to 'public' by default, 
         // but we are using docker volume mapping to write into the frontend/uploads directory.
@@ -87,10 +109,16 @@ class ItemController extends Controller
         }
 
         $urls = [];
-        foreach ($request->file('files') as $file) {
-            $uniqueFilename = (string) Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $uniqueFilename);
-            $urls[] = "/uploads/{$uniqueFilename}";
+        foreach ($files as $file) {
+            if ($file && $file->isValid()) {
+                $uniqueFilename = (string) Str::uuid() . '.' . $file->getClientOriginalExtension();
+                $file->move($uploadDir, $uniqueFilename);
+                $urls[] = "/uploads/{$uniqueFilename}";
+            }
+        }
+
+        if (empty($urls)) {
+            return response()->json(['error' => 'No valid files to process', 'debug' => $debug], 422);
         }
 
         return response()->json(['urls' => $urls]);

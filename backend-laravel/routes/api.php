@@ -7,21 +7,30 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SiteContentController;
 use App\Http\Middleware\EnsureAdminToken;
 
-Route::post('/auth/login', [AuthController::class, 'login']);
+function addRoute($method, $uri, $action, $middleware = null) {
+    $r1 = Route::$method($uri, $action);
+    $r2 = Route::$method($uri . '/', $action);
+    if ($middleware) {
+        $r1->middleware($middleware);
+        $r2->middleware($middleware);
+    }
+}
 
-Route::get('/items', [ItemController::class, 'index']);
-Route::post('/contact', [ContactController::class, 'store']);
-Route::get('/site-content', [SiteContentController::class, 'index']);
+addRoute('post', '/auth/login', [AuthController::class, 'login']);
+
+addRoute('get', '/items', [ItemController::class, 'index']);
+addRoute('post', '/contact', [ContactController::class, 'store']);
+addRoute('get', '/site-content', [SiteContentController::class, 'index']);
 
 // Protected routes
 Route::middleware([EnsureAdminToken::class])->group(function () {
-    Route::post('/items', [ItemController::class, 'store']);
-    Route::put('/items/{id}', [ItemController::class, 'update']);
-    Route::delete('/items/{id}', [ItemController::class, 'destroy']);
-    Route::post('/items/upload', [ItemController::class, 'upload']);
+    addRoute('post', '/items', [ItemController::class, 'store']);
+    addRoute('put', '/items/{id}', [ItemController::class, 'update']);
+    addRoute('delete', '/items/{id}', [ItemController::class, 'destroy']);
+    addRoute('post', '/items/upload', [ItemController::class, 'upload']);
     
-    Route::get('/contact', [ContactController::class, 'index']);
-    Route::delete('/contact/{id}', [ContactController::class, 'destroy']);
+    addRoute('get', '/contact', [ContactController::class, 'index']);
+    addRoute('delete', '/contact/{id}', [ContactController::class, 'destroy']);
     
-    Route::put('/site-content/{key}', [SiteContentController::class, 'update']);
+    addRoute('put', '/site-content/{key}', [SiteContentController::class, 'update']);
 });
